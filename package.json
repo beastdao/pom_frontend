@@ -1,0 +1,66 @@
+{
+  "name": "pom-frontend-ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.60",
+    "@types/react": "^18.2.36",
+    "@types/react-dom": "^18.2.14",
+    "axios": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "connectkit": "^1.5.3",
+    "ethers": "^6.8.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "^5.0.1",
+    "serve": "^14.2.1",
+    "typescript": "^5.2.2",
+    "viem": "^1.18.9",
+    "wagmi": "^1.4.6",
+    "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5.2.2"
+    }
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-helmet": "^6.1.8",
+    "@types/styled-components": "^5.1.30"
+  }
+}
