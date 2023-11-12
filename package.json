@@ -22,6 +22,7 @@
     "react-router-dom": "^6.16.0",
     "react-scripts": "^5.0.1",
     "serve": "^14.2.1",
+    "stream-browserify": "^3.0.0",
     "typescript": "^5.2.2",
     "viem": "^1.18.9",
     "wagmi": "^1.4.6",
@@ -46,6 +47,7 @@
       "react-app/jest"
     ]
   },
+
   "browserslist": {
     "production": [
       "chrome >= 67",
@@ -60,8 +62,26 @@
       "last 1 safari version"
     ]
   },
+  "browser":{
+    "tls":false,
+    "net":false,
+    "fs": false
+  },
   "devDependencies": {
     "@types/react-helmet": "^6.1.8",
-    "@types/styled-components": "^5.1.30"
+    "@types/styled-components": "^5.1.30",
+    "stream": "npm:stream-browserify@^3.0.0",
+    "net":"npm:net-browserify@^0.2.4",
+    "http":"npm:stream-http@^3.2.0",
+    "https":"npm:https-browserify@^1.0.0",
+    "url": "npm:url@^0.11.3",
+    "crypto": "npm:crypto-browserify@3.12.0",
+    "tls": "npm:tls-browserify@0.2.2",
+    "zlib": "npm:browserify-zlib@^0.2.0",
+    "assert": "npm:assert@^2.1.0",
+    "timers": "npm:timers-browserify@^2.0.12",
+    "os": "npm:os-browserify@^0.3.0",
+    "fs": "npm:browserify-fs@^1.0.0",
+    "path": "npm:path-browserify@^1.0.1"
   }
 }
