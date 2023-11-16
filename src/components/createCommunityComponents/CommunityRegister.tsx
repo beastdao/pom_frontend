@@ -7,7 +7,7 @@ import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-
+import { useAccount } from 'wagmi';
 
 const NULLADDR = "0x0000000000000000000000000000000000000000";
 
@@ -38,6 +38,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
   const [showModal, setShowModal] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false); // New state variable
   const [errorCount, setErrorCount] = useState<number>(0);
+  const { address } = useAccount();
 
   const {
     data: dataCommunityRegister,
@@ -80,12 +81,12 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
   }, [dataCommunityRegister]);
 
   useEffect(() => {
-    if (feedBackText === 'Community is Available' && isAddressValid() && isCheckboxValid()) {
+    if (feedBackText === 'Community is Available' && isAddressValid() && isCheckboxValid() && !isLoadingCommunityRegister && address!==undefined) {
       setButtonStatus('');
     } else {
       setButtonStatus('disabled');
     }
-  }, [feedBackText, adminAddress, isChecked]);
+  }, [feedBackText, adminAddress, isChecked,address]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
