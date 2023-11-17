@@ -82,7 +82,6 @@ html, body {
 /* Any Page Content */
 .page-content {
   width: 100%;
-  height: 92vh;
   padding: 20px; /* Add some padding for spacing */
   display: flex;
   flex-direction: column;
