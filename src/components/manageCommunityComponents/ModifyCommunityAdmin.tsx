@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
+import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
 
 
 const NULLADDR = "0x0000000000000000000000000000000000000000";
@@ -101,40 +100,20 @@ function ModifyCommunityAdmin({ searchValue, currentAdminAddress, buttonsStatus}
       </Button>
 
       {isButtonClicked && (
-        <>
-      <div className="modal-overlay">
-        <Modal show={showModal} animation={false}>
-          <Modal.Header closeButton onClick={closeModal}>
-            <Modal.Title>Transaction Status</Modal.Title>
-          </Modal.Header>
 
-          <Modal.Body>
-          {isPendingModifyAdmin ? (
-            <>
-              <p>Waiting for transaction confirmation. Pending...</p>
-              <Spinner animation="border" variant="secondary" />
-            </>
-          ) : isTxErrorModifyAdmin && errorCount<=5 ? (
-                <>
-                <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
-                <Spinner animation="border" variant="secondary" />
-                </>
-              ) : errorCount==6 ? (
-            <p><b>Error:</b> {txErrorModifyAdmin && 'details' in txErrorModifyAdmin && typeof txErrorModifyAdmin.details === 'string' ? txErrorModifyAdmin.details : 'An error occurred.'}</p>
-          ) : isWriteErrorModifyAdmin ? (
-            <p><b>Error:</b> {writeErrorModifyAdmin && 'details' in writeErrorModifyAdmin && typeof writeErrorModifyAdmin.details === 'string' ? writeErrorModifyAdmin.details : 'An error occurred.'}</p>
-          ): isSuccessModifyAdmin && receiptModifyAdmin ? (
-            <div className="mt">
-              <p> Success! </p>
-              <a href={`https://sepolia.etherscan.io/tx/${receiptModifyAdmin.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-            </div>
-          ) : (
-            <Spinner animation="border" variant="secondary" />
-          )}
-          </Modal.Body>
-        </Modal>
-      </div>
-      </>
+        <TxStatusModalBasic
+        show = {showModal}
+        onClose ={closeModal}
+        isPending = {isPendingModifyAdmin}
+        isTxError = {isTxErrorModifyAdmin}
+        errorCount = {errorCount}
+        txError= {txErrorModifyAdmin ? txErrorModifyAdmin : undefined}
+        isWriteError ={isWriteErrorModifyAdmin}
+        writeError = {writeErrorModifyAdmin ? writeErrorModifyAdmin : undefined}
+        isSuccess = {isSuccessModifyAdmin}
+        receipt = {receiptModifyAdmin ? receiptModifyAdmin : undefined}
+        />
+
     )}
     </div>
   );

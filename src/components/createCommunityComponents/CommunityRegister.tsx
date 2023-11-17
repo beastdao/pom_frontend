@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { useAccount } from 'wagmi';
+import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
+
 
 const NULLADDR = "0x0000000000000000000000000000000000000000";
 
@@ -213,39 +213,20 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
 
 
         {isButtonClicked && (
-        <div className="modal-overlay">
-          <Modal show={showModal} animation={false}>
-            <Modal.Header closeButton onClick={closeModal}>
-              <Modal.Title>Transaction Status</Modal.Title>
-            </Modal.Header>
 
-            <Modal.Body>
-                  {isPending ? (
-                    <>
-                      <p>Pending...</p>
-                      <Spinner animation="border" variant="secondary" />
-                    </>
-                  ) : isTxError && errorCount<=5 ? (
-                        <>
-                        <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
-                        <Spinner animation="border" variant="secondary" />
-                        </>
-                      ) : errorCount==6 ? (
-                    <p><b>Error:</b> {txError && 'details' in txError && typeof txError.details === 'string' ? txError.details : 'An error occurred.'}</p>
-                  ) : isWriteError ? (
-                    <p><b>Error:</b> {writeError && 'details' in writeError && typeof writeError.details === 'string' ? writeError.details : 'An error occurred.'}</p>
-                  ): isSuccess && receipt ? (
-                    <div className="mt">
-                      <p> Success! </p>
-                      <a href={`https://sepolia.etherscan.io/tx/${receipt.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-                    </div>
-                  ) : (
-                    <Spinner animation="border" variant="secondary" />
-                  )}
-                </Modal.Body>
+          <TxStatusModalBasic
+          show = {showModal}
+          onClose ={closeModal}
+          isPending = {isPending}
+          isTxError = {isTxError}
+          errorCount = {errorCount}
+          txError= {txError ? txError : undefined}
+          isWriteError ={isWriteError}
+          writeError = {writeError ? writeError : undefined}
+          isSuccess = {isSuccess}
+          receipt = {receipt ? receipt : undefined}
+          />
 
-          </Modal>
-        </div>
       )}
       </Form>
     </div>

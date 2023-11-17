@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
+import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
 
 function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAdmin}:{searchValue:string, buttonsStatus:string, isSuspendedByAdmin:string}) {
 
@@ -136,40 +135,20 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
     </Button>
 
       {isSuspendButtonClicked && (
-        <>
-      <div className="modal-overlay">
-        <Modal show={showModalSuspend} animation={false}>
-          <Modal.Header closeButton onClick={closeModalSuspend}>
-            <Modal.Title>Transaction Status</Modal.Title>
-          </Modal.Header>
 
-          <Modal.Body>
-          {isPendingSuspendCommunity ? (
-            <>
-              <p>Waiting for transaction confirmation. Pending...</p>
-              <Spinner animation="border" variant="secondary" />
-            </>
-          ) : isTxErrorSuspendCommunity && errorCount<=5 ? (
-                <>
-                <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
-                <Spinner animation="border" variant="secondary" />
-                </>
-              ) : errorCount==6 ? (
-            <p><b>Error:</b> {txErrorSuspendCommunity && 'details' in txErrorSuspendCommunity && typeof txErrorSuspendCommunity.details === 'string' ? txErrorSuspendCommunity.details : 'An error occurred.'}</p>
-          ) : isWriteErrorSuspendCommunity ? (
-            <p><b>Error:</b> {writeErrorSuspendCommunity && 'details' in writeErrorSuspendCommunity && typeof writeErrorSuspendCommunity.details === 'string' ? writeErrorSuspendCommunity.details : 'An error occurred.'}</p>
-          ): isSuccessSuspendCommunity && receiptSuspendCommunity ? (
-            <div className="mt">
-              <p> Success! </p>
-              <a href={`https://sepolia.etherscan.io/tx/${receiptSuspendCommunity.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-            </div>
-          ) : (
-            <Spinner animation="border" variant="secondary" />
-          )}
-          </Modal.Body>
-        </Modal>
-      </div>
-      </>
+        <TxStatusModalBasic
+        show = {showModalSuspend}
+        onClose ={closeModalSuspend}
+        isPending = {isPendingSuspendCommunity}
+        isTxError = {isTxErrorSuspendCommunity}
+        errorCount = {errorCount}
+        txError= {txErrorSuspendCommunity ? txErrorSuspendCommunity : undefined}
+        isWriteError ={isWriteErrorSuspendCommunity}
+        writeError = {writeErrorSuspendCommunity ? writeErrorSuspendCommunity : undefined}
+        isSuccess = {isSuccessSuspendCommunity}
+        receipt = {receiptSuspendCommunity ? receiptSuspendCommunity : undefined}
+        />
+
     )}
     <Button id="noscale"
       variant="danger"
@@ -181,40 +160,20 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
     </Button>
 
     {isUnSuspendButtonClicked && (
-      <>
-    <div className="modal-overlay">
-      <Modal show={showModalUnSuspend} animation={false}>
-        <Modal.Header closeButton onClick={closeModalUnSuspend}>
-          <Modal.Title>Transaction Status</Modal.Title>
-        </Modal.Header>
 
-        <Modal.Body>
-        {isPendingUnSuspendCommunity ? (
-          <>
-            <p>Waiting for transaction confirmation. Pending...</p>
-            <Spinner animation="border" variant="secondary" />
-          </>
-        ) : isTxErrorUnSuspendCommunity && errorCount<=5 ? (
-              <>
-              <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
-              <Spinner animation="border" variant="secondary" />
-              </>
-            ) : errorCount==6 ? (
-          <p><b>Error:</b> {txErrorUnSuspendCommunity && 'details' in txErrorUnSuspendCommunity && typeof txErrorUnSuspendCommunity.details === 'string' ? txErrorUnSuspendCommunity.details : 'An error occurred.'}</p>
-        ) : isWriteErrorUnSuspendCommunity ? (
-          <p><b>Error:</b> {writeErrorUnSuspendCommunity && 'details' in writeErrorUnSuspendCommunity && typeof writeErrorUnSuspendCommunity.details === 'string' ? writeErrorUnSuspendCommunity.details : 'An error occurred.'}</p>
-        ): isSuccessUnSuspendCommunity && receiptUnSuspendCommunity ? (
-          <div className="mt">
-            <p> Success! </p>
-            <a href={`https://sepolia.etherscan.io/tx/${receiptUnSuspendCommunity.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-          </div>
-        ) : (
-          <Spinner animation="border" variant="secondary" />
-        )}
-        </Modal.Body>
-      </Modal>
-    </div>
-    </>
+      <TxStatusModalBasic
+      show = {showModalUnSuspend}
+      onClose ={closeModalUnSuspend}
+      isPending = {isPendingUnSuspendCommunity}
+      isTxError = {isTxErrorUnSuspendCommunity}
+      errorCount = {errorCount}
+      txError= {txErrorUnSuspendCommunity ? txErrorUnSuspendCommunity : undefined}
+      isWriteError ={isWriteErrorUnSuspendCommunity}
+      writeError = {writeErrorUnSuspendCommunity ? writeErrorUnSuspendCommunity : undefined}
+      isSuccess = {isSuccessUnSuspendCommunity}
+      receipt = {receiptUnSuspendCommunity ? receiptUnSuspendCommunity : undefined}
+      />
+
   )}
     </div>
   );

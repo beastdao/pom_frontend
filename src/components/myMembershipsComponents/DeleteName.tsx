@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
@@ -73,7 +71,7 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
     </Button>
 
       {deleteClicked && (
-        <>
+
       <TxStatusModalBasic
       show = {showModalDelete}
       onClose ={closeModalDelete}
@@ -86,7 +84,7 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
       isSuccess = {isSuccessDelete}
       receipt = {receiptDelete ? receiptDelete : undefined}
       />
-      </>
+
     )}
 
     </div>
