@@ -3,12 +3,12 @@ import TxStatusModalBasic,{ModalContentProps} from './TxStatusModalBasic';
 import {TransactionReceipt} from 'viem';
 
 
-interface TxStatusModalWithTokenProps extends ModalContentProps {
+interface TxStatusModalReceiptProps extends ModalContentProps {
   isSuccess: boolean;
   receipt: TransactionReceipt | undefined;
 }
 
-const TxStatusModalReceipt: React.FC<TxStatusModalWithTokenProps> = ({
+const TxStatusModalReceipt: React.FC<TxStatusModalReceiptProps> = ({
   isSuccess,
   receipt,
   ...props

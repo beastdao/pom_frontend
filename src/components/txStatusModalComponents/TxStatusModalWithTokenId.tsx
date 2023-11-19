@@ -4,13 +4,13 @@ import AddTokenToWallet from '../connectKit/AddTokenToWallet';
 import {TransactionReceipt} from 'viem';
 
 
-interface TxStatusModalWithTokenProps extends ModalContentProps {
+interface TxStatusModalWithTokenIdProps extends ModalContentProps {
   isSuccess: boolean;
   receipt: TransactionReceipt | undefined;
   tokenId: string | undefined ;
 }
 
-const TxStatusModalWithTokenId: React.FC<TxStatusModalWithTokenProps> = ({
+const TxStatusModalWithTokenId: React.FC<TxStatusModalWithTokenIdProps> = ({
   isSuccess,
   receipt,
   tokenId,
