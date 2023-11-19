@@ -51,7 +51,10 @@ const TxStatusModalBasic: React.FC<ModalContentProps> = ({
           ) : isWriteError ? (
             <p><b>Error:</b> {writeError && 'details' in writeError && typeof writeError.details === 'string' ? writeError.details : 'An error occurred.'}</p>
           ) : isLoading ? (
+            <>
+            <p>Waiting for Wallet</p>
             <Spinner animation="border" variant="secondary" />
+            </>
           ) : null}
           {children}
         </Modal.Body>
