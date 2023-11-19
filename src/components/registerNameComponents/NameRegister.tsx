@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
 import { RenderSVG } from '../wagmiHooks/RenderSVG';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
@@ -12,7 +10,8 @@ import BigNumber from 'bignumber.js';
 import { useAccount } from 'wagmi';
 import Alert from 'react-bootstrap/Alert';
 import {calculateTokenId} from '../utils/calculateTokenId';
-import AddTokenToWallet from '../connectKit/AddTokenToWallet';
+import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
+
 
 function checkName(textData:boolean){
   let feedback;
@@ -264,40 +263,22 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
         </Card>
 
         {isButtonClicked && (
-        <div className="modal-overlay">
-          <Modal show={showModal} animation={false}>
-            <Modal.Header closeButton onClick={closeModal}>
-              <Modal.Title>Transaction Status</Modal.Title>
-            </Modal.Header>
 
-            <Modal.Body>
-            {isPendingRegName ? (
-              <>
-                <p>Waiting for transaction confirmation. Pending...</p>
-                <Spinner animation="border" variant="secondary" />
-              </>
-            ) : isErrorRegNameTx && errorCount<=5 ? (
-                  <>
-                  <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
-                  <Spinner animation="border" variant="secondary" />
-                  </>
-                ) : errorCount==6 ? (
-              <p><b>Error:</b> {errorRegNameTx && 'details' in errorRegNameTx && typeof errorRegNameTx.details === 'string' ? errorRegNameTx.details : 'An error occurred.'}</p>
-            ) : isErrorRegNameWrite ? (
-              <p><b>Error:</b> {errorRegNameWrite && 'details' in errorRegNameWrite && typeof errorRegNameWrite.details === 'string' ? errorRegNameWrite.details : 'An error occurred.'}</p>
-            ): isSuccessRegName && receiptRegName && tokenId ? (
-              <div className="mt">
-                <p> Success! </p>
-                <p> <b>Token ID:</b> {tokenId} </p>
-                <a href={`https://sepolia.etherscan.io/tx/${receiptRegName.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-                <AddTokenToWallet tokenIdValue = {tokenId} />
-                </div>
-            ) : (
-              <Spinner animation="border" variant="secondary" />
-            )}
-            </Modal.Body>
-          </Modal>
-        </div>
+          <TxStatusModalWithTokenId
+          show = {showModal}
+          onClose ={closeModal}
+          isPending = {isPendingRegName}
+          isTxError = {isErrorRegNameTx}
+          errorCount = {errorCount}
+          txError= {errorRegNameTx ? errorRegNameTx : undefined}
+          isWriteError ={isErrorRegNameWrite}
+          writeError = {errorRegNameWrite ? errorRegNameWrite : undefined}
+          isLoading = {isLoadingRegName}
+          isSuccess = {isSuccessRegName}
+          receipt = {receiptRegName ? receiptRegName : undefined}
+          tokenId = {tokenId ? tokenId : undefined}
+          />
+
       )}
       </Form>
     </div>

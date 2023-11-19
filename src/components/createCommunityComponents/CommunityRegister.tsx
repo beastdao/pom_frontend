@@ -6,7 +6,7 @@ import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { useAccount } from 'wagmi';
-import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
+import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 
 
 const NULLADDR = "0x0000000000000000000000000000000000000000";
@@ -214,7 +214,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
 
         {isButtonClicked && (
 
-          <TxStatusModalBasic
+          <TxStatusModalReceipt
           show = {showModal}
           onClose ={closeModal}
           isPending = {isPending}
@@ -223,6 +223,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
           txError= {txError ? txError : undefined}
           isWriteError ={isWriteError}
           writeError = {writeError ? writeError : undefined}
+          isLoading = {isLoading}
           isSuccess = {isSuccess}
           receipt = {receipt ? receipt : undefined}
           />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
-import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
+import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 
 interface DeleteNameProps {
   nameAtCommunity: string;
@@ -15,7 +15,6 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
   const [deleteClicked, setDeleteClicked] = useState(false);
   const [errorCount, setErrorCount] = useState<number>(0);
   const navigate = useNavigate();
-
 
   const {
     write: writeDelete,
@@ -38,12 +37,13 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
   };
 
   useEffect(() => {
-    console.log('error #',{errorCount});
+
     if (isTxErrorDelete && errorCount<=5) {
+      console.log('error #',{errorCount});
       const timer = setTimeout(() => {
         txRefetchDelete();
         setErrorCount(errorCount+1);
-      }, 5000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
     if (isPendingDelete || isSuccessDelete) {
@@ -72,7 +72,7 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
 
       {deleteClicked && (
 
-      <TxStatusModalBasic
+      <TxStatusModalReceipt
       show = {showModalDelete}
       onClose ={closeModalDelete}
       isPending = {isPendingDelete}
@@ -81,6 +81,7 @@ const DeleteName: React.FC<DeleteNameProps> = ({nameAtCommunity}) => {
       txError= {txErrorDelete ? txErrorDelete : undefined}
       isWriteError ={isWriteErrorDelete}
       writeError = {writeErrorDelete ? writeErrorDelete : undefined}
+      isLoading = {isLoadingDelete}
       isSuccess = {isSuccessDelete}
       receipt = {receiptDelete ? receiptDelete : undefined}
       />

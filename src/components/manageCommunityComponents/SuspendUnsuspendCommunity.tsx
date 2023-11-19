@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
-import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
+import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 
 function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAdmin}:{searchValue:string, buttonsStatus:string, isSuspendedByAdmin:string}) {
 
@@ -136,7 +136,7 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
 
       {isSuspendButtonClicked && (
 
-        <TxStatusModalBasic
+        <TxStatusModalReceipt
         show = {showModalSuspend}
         onClose ={closeModalSuspend}
         isPending = {isPendingSuspendCommunity}
@@ -145,6 +145,7 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
         txError= {txErrorSuspendCommunity ? txErrorSuspendCommunity : undefined}
         isWriteError ={isWriteErrorSuspendCommunity}
         writeError = {writeErrorSuspendCommunity ? writeErrorSuspendCommunity : undefined}
+        isLoading = {isLoadingSuspendCommunity}
         isSuccess = {isSuccessSuspendCommunity}
         receipt = {receiptSuspendCommunity ? receiptSuspendCommunity : undefined}
         />
@@ -161,7 +162,7 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
 
     {isUnSuspendButtonClicked && (
 
-      <TxStatusModalBasic
+      <TxStatusModalReceipt
       show = {showModalUnSuspend}
       onClose ={closeModalUnSuspend}
       isPending = {isPendingUnSuspendCommunity}
@@ -170,6 +171,7 @@ function SuspendUnsuspendCommunity({ searchValue, buttonsStatus, isSuspendedByAd
       txError= {txErrorUnSuspendCommunity ? txErrorUnSuspendCommunity : undefined}
       isWriteError ={isWriteErrorUnSuspendCommunity}
       writeError = {writeErrorUnSuspendCommunity ? writeErrorUnSuspendCommunity : undefined}
+      isLoading = {isLoadingUnSuspendCommunity}
       isSuccess = {isSuccessUnSuspendCommunity}
       receipt = {receiptUnSuspendCommunity ? receiptUnSuspendCommunity : undefined}
       />

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
-import TxStatusModalBasic from '../txStatusModalComponents/TxStatusModalBasic';
+import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 
 
 const NULLADDR = "0x0000000000000000000000000000000000000000";
@@ -101,7 +101,7 @@ function ModifyCommunityAdmin({ searchValue, currentAdminAddress, buttonsStatus}
 
       {isButtonClicked && (
 
-        <TxStatusModalBasic
+        <TxStatusModalReceipt
         show = {showModal}
         onClose ={closeModal}
         isPending = {isPendingModifyAdmin}
@@ -110,6 +110,7 @@ function ModifyCommunityAdmin({ searchValue, currentAdminAddress, buttonsStatus}
         txError= {txErrorModifyAdmin ? txErrorModifyAdmin : undefined}
         isWriteError ={isWriteErrorModifyAdmin}
         writeError = {writeErrorModifyAdmin ? writeErrorModifyAdmin : undefined}
+        isLoading = {isLoadingModifyAdmin}
         isSuccess = {isSuccessModifyAdmin}
         receipt = {receiptModifyAdmin ? receiptModifyAdmin : undefined}
         />
