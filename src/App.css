@@ -26,7 +26,7 @@ html, body, #root, .App {
 
 /* Header */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -36,28 +36,27 @@ html, body, #root, .App {
   z-index: 101;
 }
 
+.navbar-brand{
+  width: auto;
+
+}
+
 .navbar img {
   margin-right: 1vw !important;
 }
+.connectKitBtn{
+  margin-left:  auto;
+}
 
 /* Side Navigation */
-.navigation {
-  position: absolute;
-  right:0;
-  padding-top: 20px;
-  width: 19vw; /* Set a fixed width for the sidebar */
-  height: 92.5vh;
-}
 
-.nav {
-  background-color: #FFFFFF !important;
-  border-left: 1px solid #D6D8E1;
-}
 
 .nav-link {
   color: #000000 !important;
   font-weight: 500 !important;
+  margin: 0 1vw;
 }
+
 
 .nav-link:hover {
   color: #AC80F3 !important;
@@ -67,12 +66,13 @@ html, body, #root, .App {
   position: fixed !important;
   bottom: 0;
   right: 0;
-  left: 81vw;
+  left: 0;
 }
 
 /* Content Container */
 .content-container {
-  width: 81vw;
+
+  width: 100vw;
   min-height: 90vh;
   background-color: #F4F4F8 !important;
 }
@@ -86,6 +86,7 @@ html, body, #root, .App {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 .page-content h1 {

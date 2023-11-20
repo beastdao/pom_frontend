@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/layoutComponents/Header';
-import Navigation from './components/layoutComponents/Navigation';
 import PageContent from './components/layoutComponents/Page';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -21,7 +20,7 @@ import MyCustomAvatar from "./components/connectKit/MyCustomAvatar";
 
 
 const App: React.FunctionComponent = () => {
-  const pages: string[] = ['Home', 'My Memberships', '🌈 Create Community', 'My Communities', 'About'];
+  const pages: string[] = ['MY MEMBERSHIPS', '🌈 CREATE COMMUNITY', 'MY COMMUNITIES', 'ABOUT'];
 
   return (
 
@@ -36,8 +35,7 @@ const App: React.FunctionComponent = () => {
 
     <Router>
       <div className="App">
-        <Header />
-        <Navigation pages={pages} />
+        <Header pages={pages}/>
         <div className="content-container">
           <Routes>
             <Route path="/" element={<PageContent> <Home /> </PageContent>} />

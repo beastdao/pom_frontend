@@ -4,9 +4,9 @@ import { ConnectKitButton } from 'connectkit'; // Adjust the import path based o
 
 export const ConnectButton: React.FunctionComponent = () => {
   return (
-    <>
+    <div className="connectKitBtn">
     <ConnectKitButton />
-    </>
+    </div>
 
     );
   };
