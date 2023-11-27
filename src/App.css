@@ -146,7 +146,6 @@ html, body, #root, .App {
 }
 
 .hcc1-if {
-  height: 12vh;
   width: 45%;
 }
 
@@ -388,7 +387,6 @@ html, body, #root, .App {
   }
 
   .hcc1-if {
-    height: 12vh;
     width: 100%;
   }
 
