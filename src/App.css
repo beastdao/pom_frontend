@@ -222,7 +222,7 @@ html, body, #root, .App {
 
 /* Modal styling */
 .modal-content {
-  margin: 25vh auto;
+  margin: auto;
   height: auto;
   z-index: 1001 !important; /* Ensure the modal is on top of the overlay */
   padding: 20px !important; /* Add padding for content */
