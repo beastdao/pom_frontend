@@ -49,8 +49,6 @@ html, body, #root, .App {
 }
 
 /* Side Navigation */
-
-
 .nav-link {
   color: #000000 !important;
   font-weight: 500 !important;
@@ -386,9 +384,11 @@ html, body, #root, .App {
     flex-direction: column;
   }
 
+    /* Removes  excessive spacing from create community page in smaller screens*/
   .cccc2 {
     width:100%;
   }
+
   .hcc1-if {
     width: 100%;
   }
