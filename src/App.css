@@ -370,3 +370,22 @@ html, body, #root, .App {
   height: 5rem;
   margin: 1rem;
 }
+
+/* Responsivity */
+@media screen (max-width: 768px) {
+  .page-content h1 {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hcc1 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hcc1-if {
+    height: 12vh;
+    width: 80%;
+  }
+}
