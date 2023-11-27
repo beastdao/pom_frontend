@@ -372,13 +372,16 @@ html, body, #root, .App {
 }
 
 /* Responsivity */
-@media screen (max-width: 768px) {
+@media screen and (max-width: 768px) {
+  /* Removes excessive padding from h1 */
   .page-content h1 {
     width: auto;
   }
+
 }
 
 @media screen and (max-width: 576px) {
+  /* Makes main page form responsive */
   .hcc1 {
     display: flex;
     flex-direction: column;
@@ -386,6 +389,10 @@ html, body, #root, .App {
 
   .hcc1-if {
     height: 12vh;
-    width: 80%;
+    width: 100%;
+  }
+
+  .cccc1-if {
+    width: 100%;
   }
 }
