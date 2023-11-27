@@ -386,6 +386,9 @@ html, body, #root, .App {
     flex-direction: column;
   }
 
+  .cccc2 {
+    width:100%;
+  }
   .hcc1-if {
     width: 100%;
   }
