@@ -205,7 +205,7 @@ useEffect(() => {
       <div className="hc-loading">
         {isLoadingCommunity || isLoadingName || isErrorCommunity || isErrorName ? <Spinner animation="border" variant="secondary" />  : null}
       </div>
-        <Form.Text id="TextForm">Type your chosen name and a community name. Name: 3-15, Community: 3-10 characters.</Form.Text>
+        <Form.Text id="TextForm" className='text-center'>Type your chosen name and a community name. Name: 3-15, Community: 3-10 characters.</Form.Text>
         <Button variant="dark" onClick={handleButtonClick} disabled={buttonStatus === 'disabled'}>
           PROCEED
         </Button>

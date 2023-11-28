@@ -134,7 +134,7 @@ const CommunitiesSearchBasic: React.FC<CommunitiesSearchBasicProps> = ({
       <div className="hc-loading">
         {isLoadingCommunitySearch || isErrorCommunitySearch ? <Spinner animation="border" variant="secondary" /> : null}
       </div>
-      <Form.Text id="TextForm">Type a community name to register. Length should be 3-10 characters.</Form.Text>
+      <Form.Text id="TextForm" className='text-center'>Type a community name to register. Length should be 3-10 characters.</Form.Text>
       <Button variant="dark" onClick={handleButtonClick} disabled={buttonStatus === 'disabled'}>
         PROCEED
       </Button>

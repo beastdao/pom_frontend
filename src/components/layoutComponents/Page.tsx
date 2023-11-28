@@ -19,7 +19,7 @@ return(
       {[
         'danger',
       ].map((variant) => (
-        <Alert className="bottom" key={variant} variant={variant} onClose={() => setShowAlert(false)} dismissible>
+        <Alert className="bottom m-2" key={variant} variant={variant} onClose={() => setShowAlert(false)} dismissible>
           <b>Attention!</b> We are now at the early Alpha test stage, protocol may be updated any time leading to old data unavailability. <a href="https://forms.gle/qAsZ74NM5GZjpRc88" target="_blank"><b>Join our waitlist</b></a>
         </Alert>
       ))}
