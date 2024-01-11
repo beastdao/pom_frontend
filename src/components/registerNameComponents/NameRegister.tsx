@@ -207,7 +207,7 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
 
   return (
     <div className="hcc2">
-      <Form>
+      <Form className='nameregister'>
         <Form.Group className="mb-3" controlId="formNameAtCommunity">
           <Form.Control
             type="text"
