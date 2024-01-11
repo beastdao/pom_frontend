@@ -16,7 +16,7 @@ const Header: React.FunctionComponent<{ pages: string[] }> = ({ pages }) => (
             alt="Proof of membership logo"
             width="auto"
             height="30vh"
-            className="d-inline-block align-top"
+            className="d-inline-block align-middle"
           />
           Proof Of Membership
         </Navbar.Brand>

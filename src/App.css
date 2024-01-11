@@ -49,8 +49,6 @@ html, body, #root, .App {
 }
 
 /* Side Navigation */
-
-
 .nav-link {
   color: #000000 !important;
   font-weight: 500 !important;
@@ -146,7 +144,6 @@ html, body, #root, .App {
 }
 
 .hcc1-if {
-  height: 12vh;
   width: 45%;
 }
 
@@ -156,7 +153,13 @@ html, body, #root, .App {
   justify-content: space-around;
   align-items: center;
   height: auto;
+  width:100%;
+} 
+
+.nameregister {
   width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .hc-loading {
@@ -186,9 +189,9 @@ html, body, #root, .App {
 .rcbt {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 15vh;
+  margin: 5svh;
 }
 
 .rcbt-c1 {
@@ -222,7 +225,7 @@ html, body, #root, .App {
 
 /* Modal styling */
 .modal-content {
-  margin: 25vh auto;
+  margin: auto;
   height: auto;
   z-index: 1001 !important; /* Ensure the modal is on top of the overlay */
   padding: 20px !important; /* Add padding for content */
@@ -369,4 +372,46 @@ html, body, #root, .App {
 .errorInfo img {
   height: 5rem;
   margin: 1rem;
+}
+
+/* Responsivity */
+@media screen and (max-width: 768px) {
+  /* Removes excessive padding from h1 */
+  .page-content h1 {
+    width: auto;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  /* Makes main page form responsive */
+  .hcc1 {
+    display: flex;
+    flex-direction: column;
+  }
+
+    /* Removes  excessive spacing from create community page in smaller screens*/
+  .cccc2 {
+    width:100%;
+  }
+
+  .hcc1-if {
+    width: 100%;
+  }
+
+  .cccc1-if {
+    width: 100%;
+  }
+
+  .rcbt {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .rcbt-c1 {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
 }
