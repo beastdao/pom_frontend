@@ -144,6 +144,7 @@ html, body, #root, .App {
 }
 
 .hcc1-if {
+  height: 12vh;
   width: 45%;
 }
 
@@ -154,7 +155,7 @@ html, body, #root, .App {
   align-items: center;
   height: auto;
   width:100%;
-} 
+}
 
 .nameregister {
   width: 100%;
