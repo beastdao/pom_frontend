@@ -183,9 +183,9 @@ html, body, #root, .App {
 .rcbt {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 15vh;
+  margin: 5svh;
 }
 
 .rcbt-c1 {
@@ -394,6 +394,17 @@ html, body, #root, .App {
   }
 
   .cccc1-if {
+    width: 100%;
+  }
+
+  .rcbt {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .rcbt-c1 {
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
 }
