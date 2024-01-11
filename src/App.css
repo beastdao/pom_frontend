@@ -153,11 +153,13 @@ html, body, #root, .App {
   justify-content: space-around;
   align-items: center;
   height: auto;
+  width:100%;
 } 
 
 .nameregister {
   width: 100%;
   word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .hc-loading {
@@ -411,4 +413,5 @@ html, body, #root, .App {
     align-items: center;
     width: 100%;
   }
+
 }

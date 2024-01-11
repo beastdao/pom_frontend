@@ -227,7 +227,7 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
         {[ 'light',
           ].map((variant) => (
             <Alert key={variant} variant={variant}>
-              <div>
+              <div className=''>
                 <p> <b>Name price:</b> {isLoadingPrice || isErrorPrice ? "loading..." : prettyPrice(Number(priceTier)) + " ETH"} </p>
                 <p> <b>Ownership period:</b> lifelong </p>
                 <p> <b>Community Admin:</b> {isLoadingIsAdmin || isErrorIsAdmin ? "loading..." : adminAddress} </p>
@@ -246,7 +246,7 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
             onChange={handleCheckboxChange}
           />
         </Form.Group>
-        <Card style={{ width: '20rem' }} bg="light">
+        <Card style={{objectFit: 'none', maxWidth: '20rem' }} bg="light">
         {isLoadingSVG || isErrorSVG || !dataSVG ? 'loading...' :
          <object data={imgData} type="image/svg+xml"> Card image </object>}
           <Card.Body>
