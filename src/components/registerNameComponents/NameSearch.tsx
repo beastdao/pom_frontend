@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
-import { Community,FetchRecentCommunities } from '../apiBackendComponents/FetchRecentCommunities';
-import {getValidationConditions} from '../utils/inputValidationConditions';
+import { Community, FetchRecentCommunities } from '../apiBackendComponents/FetchRecentCommunities';
+import { getValidationConditions } from '../utils/inputValidationConditions';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { useAccount } from 'wagmi';
 
 //no function isCommunityAvailable that returns bool
 function checkCommunity(textData: string) {
@@ -19,14 +20,21 @@ function checkCommunity(textData: string) {
   return [feedback, validity];
 }
 
-function checkName(textData: boolean) {
-  const feedback = textData
-    ? 'Name is available for registration in this community'
-    : 'Name is already taken in this community';
-  const validity = textData ? 'isValid' : 'isInvalid';
+function checkName(textData: boolean, membershipData: boolean) {
+  console.log(membershipData);
+  const feedback =
+    textData === false
+      ? 'Name is not available for registration in this community'
+      : membershipData === true
+        ? 'You already have a name in this community!'
+        : 'Name is available for registration in this community';
+  const validity = membershipData === true ? 'isInvalid' : textData ? 'isValid' : 'isInvalid';
   const buttonStatus = textData ? '' : 'disabled';
+  console.log(feedback);
   return [feedback, validity, buttonStatus];
 }
+
+
 
 
 function NameSearch() {
@@ -38,22 +46,44 @@ function NameSearch() {
   const [nameValidity, setNameValidity] = useState<string | null>(null);
   const [communityValidity, setCommunityValidity] = useState<string | null>(null);
   const [buttonStatus, setButtonStatus] = useState<string>('disabled');
-  const [recentCommunities, setRecentCommunities] = useState<Community[]|null>(null); //rewrite type
+  const [recentCommunities, setRecentCommunities] = useState<Community[] | null>(null); //rewrite type
+  const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { address } = useAccount();
 
   const {
-    data:dataCommunity,
-    refetch:refetchCommunity,
-    isError:isErrorCommunity,
-    isLoading:isLoadingCommunity,
-  } = NamesRegistryReadHook({functionName:'getCommunityAdmin',functionArgs:[communityValue]});
+    data: dataCommunity,
+    refetch: refetchCommunity,
+    isError: isErrorCommunity,
+    isLoading: isLoadingCommunity,
+  } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [communityValue] });
 
   const {
     data: dataName,
     refetch: refetchName,
     isError: isErrorName,
     isLoading: isLoadingName,
-  } = NamesRegistryReadHook({functionName:'availableName',functionArgs:[nameValue,communityValue]});
+  } = NamesRegistryReadHook({ functionName: 'availableName', functionArgs: [nameValue, communityValue] });
+
+  const {
+    data: dataNameInCommunityByAddress,
+    isError: isErrorNameInCommunityByAddress,
+    isLoading: isLoadingNameInCommunityByAddress,
+  } = address ? NamesRegistryReadHook({
+    functionName: 'getNameInCommunityByAddress',
+    functionArgs: [address.toString(), communityValue]
+  }) : { data: undefined, isError: false, isLoading: false };
+
+
+  useEffect(() => {
+    if (dataNameInCommunityByAddress !== undefined && address !== undefined) {
+      if (dataNameInCommunityByAddress.toString() === "0") {
+        setAlreadyHasName(false);
+      } else {
+        setAlreadyHasName(true);
+      }
+    }
+  }, [dataNameInCommunityByAddress, address]);
 
 
   useEffect(() => {
@@ -69,11 +99,11 @@ function NameSearch() {
     setCommunityFeedbackText('');
     setCommunityValidity(null);
 
-    const communityValidationConditions = getValidationConditions(communityValue,  3, 10);
+    const communityValidationConditions = getValidationConditions(communityValue, 3, 10);
     let matchingConditionCommunity = null;
 
-    if (communityValidationConditions!== null) {
-       matchingConditionCommunity = communityValidationConditions.find((condition) => condition.condition);
+    if (communityValidationConditions !== null) {
+      matchingConditionCommunity = communityValidationConditions.find((condition) => condition.condition);
     }
 
     if (matchingConditionCommunity) {
@@ -81,63 +111,63 @@ function NameSearch() {
       setCommunityValidity(matchingConditionCommunity.inputValidity);
       setButtonStatus(matchingConditionCommunity.buttonStatus);
     } else if (dataCommunity !== undefined) {
-        let [status, validity] = checkCommunity(dataCommunity.toString());
-        setCommunityFeedbackText(status);
-        setCommunityValidity(validity);
-  }
-}, [communityValue,isLoadingCommunity]);
+      let [status, validity] = checkCommunity(dataCommunity.toString());
+      setCommunityFeedbackText(status);
+      setCommunityValidity(validity);
+    }
+  }, [communityValue, isLoadingCommunity]);
 
 
-useEffect(() => {
-  setNameFeedbackText('');
-  setNameValidity(null);
+  useEffect(() => {
+    setNameFeedbackText('');
+    setNameValidity(null);
 
-  const nameValidationConditions = getValidationConditions(nameValue,  3, 15);
-  let matchingConditionName = null;
+    const nameValidationConditions = getValidationConditions(nameValue, 3, 15);
+    let matchingConditionName = null;
 
-  if (nameValidationConditions!== null) {
-     matchingConditionName = nameValidationConditions.find((condition) => condition.condition);
-  }
+    if (nameValidationConditions !== null) {
+      matchingConditionName = nameValidationConditions.find((condition) => condition.condition);
+    }
 
-  if (matchingConditionName) {
-    setNameFeedbackText(matchingConditionName.feedbackText);
-    setNameValidity(matchingConditionName.inputValidity);
-    setButtonStatus(matchingConditionName.buttonStatus);
+    if (matchingConditionName) {
+      setNameFeedbackText(matchingConditionName.feedbackText);
+      setNameValidity(matchingConditionName.inputValidity);
+      setButtonStatus(matchingConditionName.buttonStatus);
 
-  } else if (dataName !== undefined && communityValidity==="isValid") {
-      let [status, validity, buttonStatus] = checkName(Boolean(dataName));
+    } else if (dataName !== undefined && communityValidity === "isValid") {
+      let [status, validity, buttonStatus] = checkName(Boolean(dataName), Boolean(alreadyHasName));
       setNameFeedbackText(status);
       setNameValidity(validity);
       setButtonStatus(buttonStatus);
-  }
+    }
 
-}, [nameValue,communityValue,communityValidity,isLoadingName]);
+  }, [nameValue, communityValue, communityValidity, isLoadingName, alreadyHasName]);
 
 
-const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const inputNameValue = event.target.value;
-  setNameValue(inputNameValue.toLowerCase());
-};
+  const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputNameValue = event.target.value;
+    setNameValue(inputNameValue.toLowerCase());
+  };
 
-const handleCommunityInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const inputCommunityValue = event.target.value;
-  setCommunityValue(inputCommunityValue.toLowerCase());
-};
+  const handleCommunityInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputCommunityValue = event.target.value;
+    setCommunityValue(inputCommunityValue.toLowerCase());
+  };
 
-const handleButtonClick = () => {
-    const nameAtCommunity = nameValue+"@"+communityValue;
+  const handleButtonClick = () => {
+    const nameAtCommunity = nameValue + "@" + communityValue;
     navigate(`/RegisterNameFinal/${nameAtCommunity}`);
-};
+  };
 
-const handleCommunitySelect = (selectedCommunity:string) => {
-  setCommunityValue(selectedCommunity.toLowerCase());
-};
+  const handleCommunitySelect = (selectedCommunity: string) => {
+    setCommunityValue(selectedCommunity.toLowerCase());
+  };
 
 
-useEffect(() => {
+  useEffect(() => {
     let intervalId: NodeJS.Timeout | undefined;
 
-    if(isErrorCommunity||isErrorName){
+    if (isErrorCommunity || isErrorName) {
       console.log("refetching")
       intervalId = setInterval(() => {
         refetchCommunity();
@@ -145,87 +175,87 @@ useEffect(() => {
       }, 1000);
     }
     return () => {
-      if(intervalId) {
+      if (intervalId) {
         clearInterval(intervalId);
       }
     };
-  }, [isErrorCommunity, refetchCommunity,isErrorName,refetchName]);
+  }, [isErrorCommunity, refetchCommunity, isErrorName, refetchName]);
 
   return (
 
     <>
-    <div className="hcc1">
-      <div className="hcc1-if">
-        <InputGroup className="mb-3" size="lg">
-          <Form.Control
-            className="rounded"
-            type="text"
-            id="inputName"
-            aria-describedby="NameHelpBlock"
-            placeholder="YOUR NAME"
-            value={nameValue}
-            onChange={handleNameInputChange}
-            isInvalid={nameValidity === 'isInvalid'}
-            isValid={nameValidity === 'isValid'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {nameFeedbackText}
-          </Form.Control.Feedback>
-          <Form.Control.Feedback type="valid">
-            {nameFeedbackText}
-          </Form.Control.Feedback>
-        </InputGroup>
+      <div className="hcc1">
+        <div className="hcc1-if">
+          <InputGroup className="mb-3" size="lg">
+            <Form.Control
+              className="rounded"
+              type="text"
+              id="inputName"
+              aria-describedby="NameHelpBlock"
+              placeholder="YOUR NAME"
+              value={nameValue}
+              onChange={handleNameInputChange}
+              isInvalid={nameValidity === 'isInvalid'}
+              isValid={nameValidity === 'isValid'}
+            />
+            <Form.Control.Feedback type="invalid">
+              {nameFeedbackText}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {nameFeedbackText}
+            </Form.Control.Feedback>
+          </InputGroup>
+        </div>
+
+        <div className="hcc1-if">
+          <InputGroup className="mb-3" size="lg">
+            <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+            <Form.Control
+              className="rounded"
+              type="text"
+              placeholder="COMMUNITY"
+              aria-label="Community search"
+              aria-describedby="basic-addon2"
+              value={communityValue}
+              onChange={handleCommunityInputChange}
+              isInvalid={communityValidity === 'isInvalid'}
+              isValid={communityValidity === 'isValid'}
+            />
+            <Form.Control.Feedback type="invalid">
+              {communityFeedbackText}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {communityFeedbackText}
+            </Form.Control.Feedback>
+          </InputGroup>
+        </div>
       </div>
 
-      <div className="hcc1-if">
-        <InputGroup className="mb-3" size="lg">
-          <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-          <Form.Control
-            className="rounded"
-            type="text"
-            placeholder="COMMUNITY"
-            aria-label="Community search"
-            aria-describedby="basic-addon2"
-            value={communityValue}
-            onChange={handleCommunityInputChange}
-            isInvalid={communityValidity === 'isInvalid'}
-            isValid={communityValidity === 'isValid'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {communityFeedbackText}
-          </Form.Control.Feedback>
-          <Form.Control.Feedback type="valid">
-            {communityFeedbackText}
-          </Form.Control.Feedback>
-        </InputGroup>
-      </div>
-    </div>
-
-    <div className="hcc2">
-      <div className="hc-loading">
-        {isLoadingCommunity || isLoadingName || isErrorCommunity || isErrorName ? <Spinner animation="border" variant="secondary" />  : null}
-      </div>
+      <div className="hcc2">
+        <div className="hc-loading">
+          {isLoadingCommunity || isLoadingName || isErrorCommunity || isErrorName ? <Spinner animation="border" variant="secondary" /> : null}
+        </div>
         <Form.Text id="TextForm" className='text-center'>Type your chosen name and a community name. Name: 3-15, Community: 3-10 characters.</Form.Text>
         <Button variant="dark" onClick={handleButtonClick} disabled={buttonStatus === 'disabled'}>
           PROCEED
         </Button>
-    </div>
-    <div className="rcbt">
-      <div className="rcbt-c1">
-        <p>{recentCommunities ? "Most recent communities:" : ""}</p>
       </div>
-      <div className="rcbt-c2">
-        {recentCommunities && (
-          recentCommunities.map((community, index) => (
-            <Button variant="outline-dark" key={index} onClick={() => handleCommunitySelect(community.toString())}>
-              @{community.toString()}
-            </Button>
-          ))
-        )}
+      <div className="rcbt">
+        <div className="rcbt-c1">
+          <p>{recentCommunities ? "Most recent communities:" : ""}</p>
+        </div>
+        <div className="rcbt-c2">
+          {recentCommunities && (
+            recentCommunities.map((community, index) => (
+              <Button variant="outline-dark" key={index} onClick={() => handleCommunitySelect(community.toString())}>
+                @{community.toString()}
+              </Button>
+            ))
+          )}
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 }
 
 export default NameSearch;

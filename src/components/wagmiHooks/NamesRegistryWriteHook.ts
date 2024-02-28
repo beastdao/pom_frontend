@@ -3,14 +3,14 @@ import { namesRegistryConfig } from './contracts';
 
 interface NamesRegistryWriteHookInterface {
   functionName: string,
-  functionArgs: string[],
+  functionArgs: (string | string[])[],
   txValue: bigint,
 }
 
 export function NamesRegistryWriteHook(fn: NamesRegistryWriteHookInterface) {
   const { write, data, error: writeError, isLoading, isError: isWriteError } = useContractWrite({
     ...namesRegistryConfig,
-    address: '0x6Dd57e9899784571065867dCe8eC2d7454b650c4',
+    address: '0xe4599af01a9079392900A688E85F0d5E406B3106',
     functionName: fn.functionName,
     args: fn.functionArgs,
     value: fn.txValue,

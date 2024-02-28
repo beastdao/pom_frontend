@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { RenderSVG } from '../wagmiHooks/RenderSVG';
+import { RenderSVG, ColorScheme } from '../wagmiHooks/RenderSVG';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
-import BigNumber from 'bignumber.js';
 import { useAccount } from 'wagmi';
 import Alert from 'react-bootstrap/Alert';
-import {calculateTokenId} from '../utils/calculateTokenId';
+import { calculateTokenId } from '../utils/calculateTokenId';
 import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
 
 
-function checkName(textData:boolean){
+function checkName(textData: boolean, membershipData: boolean) {
   let feedback;
   let validity;
   let buttonStatus;
-  if(textData === false){
-     feedback =  'Name is not available for registration in this community';
-     validity = 'isInvalid';
-     buttonStatus = 'disabled';
-  }else{
-     feedback = 'Name is available for registration in this community';
-     validity ='isValid';
-     buttonStatus = '';
+  if (textData === false) {
+    feedback = 'Name is not available for registration in this community';
+    validity = 'isInvalid';
+    buttonStatus = 'disabled';
+  } else if (membershipData === true) {
+    feedback = 'You already has name in this community!';
+    validity = 'isInvalid';
+    buttonStatus = 'disabled';
   }
-  return [feedback,validity,buttonStatus];
-}
-
-function prettyPrice(priceData:number) {
-  const prettyPrice = new BigNumber(priceData).dividedBy(new BigNumber(10).pow(18)).toString();
-  return prettyPrice;
+  else {
+    feedback = 'Name is available for registration in this community';
+    validity = 'isValid';
+    buttonStatus = '';
+  }
+  return [feedback, validity, buttonStatus];
 }
 
 function getCurrentMonthAndYear() {
@@ -47,7 +46,7 @@ function getCurrentMonthAndYear() {
   return `${currentMonth} ${currentYear}`;
 }
 
-function checkIfAdmin(isAdminData:string|undefined,userAddress:string|undefined){
+function checkIfAdmin(isAdminData: string | undefined, userAddress: string | undefined) {
   return isAdminData === userAddress ? "Admin" : "Basic Member";
 }
 
@@ -56,21 +55,23 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
   const navigate = useNavigate();
   const [feedBackText, setFeedBackText] = useState<string>('');
-  const [inputValidity, setInputValidity] = useState<string|null>(null);
+  const [inputValidity, setInputValidity] = useState<string | null>(null);
   const [buttonStatus, setButtonStatus] = useState<string>('disabled');
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isButtonClicked, setIsButtonClicked] = useState<boolean>(false);
-  const [priceTier, setPriceTier] = useState<bigint>(BigInt(0));
   const [adminAddress, setAdminAddress] = useState<string>('');
   const [imgData, setImgData] = useState<string>();
   const { address } = useAccount();
   const [errorCount, setErrorCount] = useState<number>(0);
+  const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
+  const [CS, setCS] = useState<ColorScheme | undefined>(undefined);
+  /*
 
+ */
+  let [nameValue, communityValue] = nameAtCommunity.split("@");
 
-  let [nameValue,communityValue] = nameAtCommunity.split("@");
-
-  const tokenId :string | undefined = calculateTokenId(nameValue,communityValue);
+  const tokenId: string | undefined = calculateTokenId(nameValue, communityValue);
 
   const formattedDate = getCurrentMonthAndYear();
 
@@ -79,32 +80,52 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     refetch,
     isError,
     isLoading,
-  } = NamesRegistryReadHook({functionName:'availableName',functionArgs:[nameValue,communityValue]});
-
+  } = NamesRegistryReadHook({ functionName: 'availableName', functionArgs: [nameValue, communityValue] });
 
 
   const {
-    data: dataPrice,
-    refetch: refetchPrice,
-    isError: isErrorPrice,
-    isLoading: isLoadingPrice,
-  } = NamesRegistryReadHook({functionName:'getPriceTier',functionArgs:[nameValue]});
+    data: dataNameInCommunityByAddress,
+    isError: isErrorNameInCommunityByAddress,
+    isLoading: isLoadingNameInCommunityByAddress,
+  } = address ? NamesRegistryReadHook({
+    functionName: 'getNameInCommunityByAddress',
+    functionArgs: [address?.toString(), communityValue]
+  }) : { data: undefined, isError: false, isLoading: false };
 
+  console.log(dataNameInCommunityByAddress);
   const {
     data: dataIsAdmin,
     refetch: refetchIsAdmin,
     isError: isErrorIsAdmin,
     isLoading: isLoadingIsAdmin,
-  } = NamesRegistryReadHook({functionName:'getCommunityAdmin',functionArgs:[communityValue]});
+  } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [communityValue] });
 
-  const memberRole = checkIfAdmin(adminAddress,address?.toString());
 
+  const {
+    data: fetchedDataCS,
+  } = NamesRegistryReadHook({ functionName: 'getCommunityColorScheme', functionArgs: [communityValue] });
+
+
+  console.log(fetchedDataCS as unknown as ColorScheme);
+
+  useEffect(() => {
+    if (fetchedDataCS) {
+      setCS(fetchedDataCS as unknown as ColorScheme);
+    } else {
+      console.error('Invalid color scheme data:', fetchedDataCS);
+    }
+  }, [fetchedDataCS]);
+
+  const memberRole = checkIfAdmin(adminAddress, address?.toString());
   const {
     data: dataSVG,
     refetch: refetchSVG,
     isError: isErrorSVG,
     isLoading: isLoadingSVG,
-  } = RenderSVG(nameAtCommunity,formattedDate,memberRole);
+  } = RenderSVG(nameAtCommunity, formattedDate, memberRole, communityValue, CS);
+
+
+
 
   const {
     write: writeRegName,
@@ -117,29 +138,33 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     txError: errorRegNameTx,
     isLoading: isLoadingRegName,
     txRefetch: txRefetchRegName,
-  } = NamesRegistryWriteHook({functionName:'registerName',functionArgs:[nameValue, communityValue],txValue:BigInt(priceTier)});
+  } = NamesRegistryWriteHook({ functionName: 'registerName', functionArgs: [nameValue, communityValue], txValue: BigInt(0) });
 
 
-useEffect(() => {
-  if (dataPrice !== undefined && BigInt(dataPrice.toString())!==priceTier) {
-    setPriceTier(BigInt(dataPrice.toString()));
-  }
-}, [dataPrice]);
+  useEffect(() => {
+    if (dataNameInCommunityByAddress !== undefined) {
+      if (address === undefined || dataNameInCommunityByAddress.toString() === "0") {
+        setAlreadyHasName(false);
+      } else {
+        setAlreadyHasName(true);
+      }
+    }
+  }, [dataNameInCommunityByAddress, address]);
 
-useEffect(() => {
-if (dataIsAdmin !== undefined && dataIsAdmin.toString()!==adminAddress) {
-  setAdminAddress(dataIsAdmin.toString());
-}
-}, [dataIsAdmin]);
+  useEffect(() => {
+    if (dataIsAdmin !== undefined && dataIsAdmin.toString() !== adminAddress) {
+      setAdminAddress(dataIsAdmin.toString());
+    }
+  }, [dataIsAdmin, adminAddress]);
 
-useEffect(() => {
-if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
-  setImgData(dataSVG.toString());
-}
-}, [dataSVG]);
+  useEffect(() => {
+    if (dataSVG !== undefined && dataSVG !== null && dataSVG.toString() !== imgData) {
+      setImgData(dataSVG.toString());
+    }
+  }, [dataSVG, imgData]);
 
 
-//check if name is already taken
+  //check if name is already taken
   useEffect(() => {
     const intervalId = setInterval(() => {
       refetch();
@@ -151,33 +176,32 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
   }, []);
 
   useEffect(() => {
-    let [status, validity] = checkName(Boolean(data));
+    let [status, validity] = checkName(Boolean(data), Boolean(alreadyHasName));
     setFeedBackText(status);
     setInputValidity(validity);
-  }, [data]);
+  }, [data, alreadyHasName]);
 
   useEffect(() => {
-    if (feedBackText === 'Name is available for registration in this community' && isCheckboxValid() && !isLoadingIsAdmin && !isLoadingPrice && address!==undefined)  {
+    if (feedBackText === 'Name is available for registration in this community' && isCheckboxValid() && !isLoadingIsAdmin && address !== undefined && alreadyHasName !== true) {
       setButtonStatus('');
     } else {
       setButtonStatus('disabled');
     }
-  }, [feedBackText, isChecked, address]);
+  }, [feedBackText, isChecked, address, alreadyHasName, isLoadingIsAdmin]);
 
-//refetching
+  //refetching
   useEffect(() => {
-    if (isErrorRegNameTx && errorCount<=5) {
+    if (isErrorRegNameTx && errorCount <= 5) {
       const timer = setTimeout(() => {
         txRefetchRegName();
-        setErrorCount(errorCount+1);
+        setErrorCount(errorCount + 1);
       }, 2000);
       return () => clearTimeout(timer);
     }
     if (isPendingRegName || isSuccessRegName) {
       setErrorCount(0);
     }
-  }, [isErrorRegNameTx, isPendingRegName, isSuccessRegName]);
-
+  }, [isErrorRegNameTx, isPendingRegName, isSuccessRegName, errorCount, isErrorRegNameTx]);
 
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,10 +213,10 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
   };
 
 
-  const handleRegisterClick =  () => {
-      writeRegName?.();
-      setIsButtonClicked(true);
-      setShowModal(true);
+  const handleRegisterClick = () => {
+    writeRegName?.();
+    setIsButtonClicked(true);
+    setShowModal(true);
   };
 
 
@@ -224,14 +248,14 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
           </Form.Control.Feedback>
         </Form.Group>
         <>
-        {[ 'light',
+          {['light',
           ].map((variant) => (
             <Alert key={variant} variant={variant}>
               <div className=''>
-                <p> <b>Name price:</b> {isLoadingPrice || isErrorPrice ? "loading..." : prettyPrice(Number(priceTier)) + " ETH"} </p>
-                <p> <b>Ownership period:</b> lifelong </p>
+                <p> <b>Name price:</b> FREE </p>
+                <p> <b>Ownership period:</b> LIFELONG </p>
                 <p> <b>Community Admin:</b> {isLoadingIsAdmin || isErrorIsAdmin ? "loading..." : adminAddress} </p>
-                <p> 80% ({isLoadingPrice || isErrorPrice ? 'loading...' : (Number(prettyPrice(Number(priceTier)))*0.8).toFixed(3)} ETH) goes to the community treasury </p>
+
               </div>
             </Alert>
           ))}
@@ -246,9 +270,9 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
             onChange={handleCheckboxChange}
           />
         </Form.Group>
-        <Card style={{objectFit: 'none', maxWidth: '20rem' }} bg="light">
-        {isLoadingSVG || isErrorSVG || !dataSVG ? 'loading...' :
-         <object data={imgData} type="image/svg+xml"> Card image </object>}
+        <Card style={{ objectFit: 'none', maxWidth: '20rem' }} bg="light">
+          {isLoadingSVG || isErrorSVG || !dataSVG ? 'loading...' :
+            <object data={imgData} type="image/svg+xml"> Card image </object>}
           <Card.Body>
 
             <Button
@@ -265,21 +289,21 @@ if (dataSVG !== undefined && dataSVG!==null && dataSVG.toString()!==imgData) {
         {isButtonClicked && (
 
           <TxStatusModalWithTokenId
-          show = {showModal}
-          onClose ={closeModal}
-          isPending = {isPendingRegName}
-          isTxError = {isErrorRegNameTx}
-          errorCount = {errorCount}
-          txError= {errorRegNameTx ? errorRegNameTx : undefined}
-          isWriteError ={isErrorRegNameWrite}
-          writeError = {errorRegNameWrite ? errorRegNameWrite : undefined}
-          isLoading = {isLoadingRegName}
-          isSuccess = {isSuccessRegName}
-          receipt = {receiptRegName ? receiptRegName : undefined}
-          tokenId = {tokenId ? tokenId : undefined}
+            show={showModal}
+            onClose={closeModal}
+            isPending={isPendingRegName}
+            isTxError={isErrorRegNameTx}
+            errorCount={errorCount}
+            txError={errorRegNameTx ? errorRegNameTx : undefined}
+            isWriteError={isErrorRegNameWrite}
+            writeError={errorRegNameWrite ? errorRegNameWrite : undefined}
+            isLoading={isLoadingRegName}
+            isSuccess={isSuccessRegName}
+            receipt={receiptRegName ? receiptRegName : undefined}
+            tokenId={tokenId ? tokenId : undefined}
           />
 
-      )}
+        )}
       </Form>
     </div>
   );
