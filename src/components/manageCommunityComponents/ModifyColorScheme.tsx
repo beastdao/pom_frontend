@@ -6,6 +6,7 @@ import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
 import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 import { RenderSVG, ColorScheme, defaultColorScheme } from '../wagmiHooks/RenderSVG';
+import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 
 function getCurrentMonthAndYear() {
   const months = [
@@ -42,6 +43,21 @@ function ModifyColorScheme({ searchValue, buttonsStatus }: { searchValue: string
     isLoading: isLoadingModifyCS,
     txRefetch: txRefetchModifyCS,
   } = NamesRegistryWriteHook({ functionName: 'modifyColorSchemeForCommunity', functionArgs: [searchValue, [...colorSchemeArray]], txValue: BigInt("0") });
+
+
+  const {
+    data: fetchedDataCS,
+  } = NamesRegistryReadHook({ functionName: 'getCommunityColorScheme', functionArgs: [searchValue] });
+
+
+  useEffect(() => {
+    if (fetchedDataCS) {
+      setCS(fetchedDataCS as unknown as ColorScheme);
+    } else {
+      console.error('Invalid color scheme data:', fetchedDataCS);
+    }
+  }, [fetchedDataCS]);
+
 
   //refetching
   useEffect(() => {
