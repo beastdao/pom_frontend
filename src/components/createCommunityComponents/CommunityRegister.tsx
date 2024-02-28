@@ -12,7 +12,7 @@ import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceip
 const NULLADDR = "0x0000000000000000000000000000000000000000";
 
 // Function to check community validity
-function checkCommunity(textData:string) {
+function checkCommunity(textData: string) {
   let feedback;
   let validity;
   let buttonStatus;
@@ -45,7 +45,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     refetch: refetchCommunityRegister,
     isError: isErrorCommunityRegister,
     isLoading: isLoadingCommunityRegister,
-  } = NamesRegistryReadHook({functionName:'getCommunityAdmin',functionArgs:[searchValue]});
+  } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
 
   const {
     write,
@@ -58,7 +58,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     writeError,
     isLoading,
     txRefetch,
-  } = NamesRegistryWriteHook({functionName:'registerCommunity',functionArgs:[searchValue, adminAddress],txValue:BigInt("0")});
+  } = NamesRegistryWriteHook({ functionName: 'registerCommunity', functionArgs: [searchValue, adminAddress], txValue: BigInt("0") });
 
 
   useEffect(() => {
@@ -81,12 +81,12 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
   }, [dataCommunityRegister]);
 
   useEffect(() => {
-    if (feedBackText === 'Community is Available' && isAddressValid() && isCheckboxValid() && !isLoadingCommunityRegister && address!==undefined) {
+    if (feedBackText === 'Community is Available' && isAddressValid() && isCheckboxValid() && !isLoadingCommunityRegister && address !== undefined) {
       setButtonStatus('');
     } else {
       setButtonStatus('disabled');
     }
-  }, [feedBackText, adminAddress, isChecked,address]);
+  }, [feedBackText, adminAddress, isChecked, address]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -105,7 +105,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
   };
 
   // Function to handle the "Register" button click
-  const handleRegisterClick =  () => {
+  const handleRegisterClick = () => {
     if (isAddressValid() && isCheckboxValid()) {
       write?.(); // Trigger the contract write operation
       setIsButtonClicked(true);
@@ -114,10 +114,10 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
   };
 
   useEffect(() => {
-    if (isTxError && errorCount<=5) {
+    if (isTxError && errorCount <= 5) {
       const timer = setTimeout(() => {
         txRefetch();
-        setErrorCount(errorCount+1);
+        setErrorCount(errorCount + 1);
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -166,28 +166,14 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
             Not a valid Ethereum address!
           </Form.Control.Feedback>
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check
-            type="radio"
-            aria-label="radio 1"
-            label="Basic Card Design"
-            defaultChecked
-          />
-          <Form.Check
-            type="radio"
-            aria-label="radio 1"
-            label="Community Branded Card design"
-            disabled
-          />
-        </Form.Group>
         <>
-          {[ 'light',
+          {['light',
           ].map((variant) => (
             <Alert key={variant} variant={variant}>
               <div>
-                <p>Tier 1 price: <b>0,005ETH</b> | Tier 2 price: <b>0,025ETH</b> | Tier 3 price: <b>0,125ETH</b></p>
-                <p> 80% goes to admin address </p>
+                <p>Memberships issuance is <b>FREE</b> for everyone <b>forever</b>!</p>
+                <p>Membership Cards have initial color scheme designed by <a href={`https://beastdao.org`} target='_blank'>BEAST</a>.</p>
+                <p>Cards could be customized with your color scheme on <a href={`/MyCommunities`}>MY COMMUNITIES</a></p>
               </div>
             </Alert>
           ))}
@@ -215,20 +201,20 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
         {isButtonClicked && (
 
           <TxStatusModalReceipt
-          show = {showModal}
-          onClose ={closeModal}
-          isPending = {isPending}
-          isTxError = {isTxError}
-          errorCount = {errorCount}
-          txError= {txError ? txError : undefined}
-          isWriteError ={isWriteError}
-          writeError = {writeError ? writeError : undefined}
-          isLoading = {isLoading}
-          isSuccess = {isSuccess}
-          receipt = {receipt ? receipt : undefined}
+            show={showModal}
+            onClose={closeModal}
+            isPending={isPending}
+            isTxError={isTxError}
+            errorCount={errorCount}
+            txError={txError ? txError : undefined}
+            isWriteError={isWriteError}
+            writeError={writeError ? writeError : undefined}
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            receipt={receipt ? receipt : undefined}
           />
 
-      )}
+        )}
       </Form>
     </div>
   );

@@ -8,10 +8,10 @@ interface NamesRegistryReadHookInterface {
 }
 
 
-export function NamesRegistryReadHook(fn:NamesRegistryReadHookInterface) {
-  const {data,refetch, isError, isLoading} = useContractRead({
+export function NamesRegistryReadHook(fn: NamesRegistryReadHookInterface) {
+  const { data, refetch, isError, isLoading } = useContractRead({
     ...namesRegistryConfig,
-    address: '0x6Dd57e9899784571065867dCe8eC2d7454b650c4',
+    address: '0xe4599af01a9079392900A688E85F0d5E406B3106',
     functionName: fn.functionName,
     args: fn.functionArgs,
     //watch: true,
