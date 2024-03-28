@@ -31,6 +31,20 @@ function ModifyColorScheme({ searchValue, buttonsStatus }: { searchValue: string
   const navigate = useNavigate();
   const colorSchemeArray = Object.values(CS);
 
+  type ColorSchemeKeys = 'stBKG' | 'stTextBox' | 'stWitchFrameBKG' | 'stWitchSLT' | 'stWitchFace' | 'stCardTitle' | 'stTextCLR' | 'stDrop1' | 'stDrop2';
+
+const colorSchemeNames: Record<ColorSchemeKeys, string> = {
+  stBKG: 'Background',
+  stTextBox: 'Text Box',
+  stWitchFrameBKG: 'Frame Background',
+  stWitchSLT: 'Hair color',
+  stWitchFace: 'Face color',
+  stCardTitle: 'Card Title',
+  stTextCLR: 'Text color',
+  stDrop1: 'Drops 1',
+  stDrop2: 'Drops 2'
+};
+
   const {
     write: writeModifyCS,
     receipt: receiptModifyCS,
@@ -130,17 +144,17 @@ function ModifyColorScheme({ searchValue, buttonsStatus }: { searchValue: string
   return (
     <div className='mccf'>
       <div className="mccfl">
-        <Card style={{ objectFit: 'none', maxWidth: '20rem' }} bg="light">
+        <Card style={{ objectFit: 'none' }} bg="light">
           {isLoadingSVG || isErrorSVG || !dataSVG ? 'loading...' :
             <object data={imgData} type="image/svg+xml"> Card image </object>}
-          <Card.Body>
+          <Card.Body style={{padding: '2rem'}}>
             <Button
               variant="warning"
               type="button"
               disabled={buttonStatus() === 'disabled'}
               onClick={handleModifyCSClick} // Call the function when the "Register" button is clicked
             >
-              Change CS
+              Apply Colors
             </Button>
           </Card.Body>
         </Card>
@@ -165,7 +179,7 @@ function ModifyColorScheme({ searchValue, buttonsStatus }: { searchValue: string
       <div className="mccfr">
         {Object.keys(CS).map((key) => (
           <div key={key}>
-            <Form.Label htmlFor={`${key}ColorInput`}>{key}</Form.Label>
+            <Form.Label htmlFor={`${key}ColorInput`}>{colorSchemeNames[key as ColorSchemeKeys]}</Form.Label>
             <Form.Control
               type="color"
               size="sm"
