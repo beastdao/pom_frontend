@@ -25,7 +25,6 @@ body,
     flex-direction: column;
     background-color: #F4F4F8 !important;
     font-family: 'Poppins', sans-serif !important;
-    word-wrap: break-word;
 }
 
 /* Header */
@@ -78,11 +77,6 @@ body,
     width: 100vw;
     min-height: 90vh;
     background-color: #F4F4F8 !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
 }
 
 /* Any Page Content */
