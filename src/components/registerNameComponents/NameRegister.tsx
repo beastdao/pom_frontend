@@ -227,6 +227,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     navigate('/');
   };
 
+  const tos_url = "https://drive.google.com/file/d/1nQ0Zrc218dltS4_VLLozjO6Scq_EofOB/view";
 
 
   return (
@@ -265,7 +266,11 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
             type="checkbox"
-            label="I accept Terms and Conditions"
+            label={
+                    <span>
+                      I accept the <a href={tos_url}>Terms and Conditions</a>
+                    </span>
+                  }
             isInvalid={!isCheckboxValid()}
             onChange={handleCheckboxChange}
           />
