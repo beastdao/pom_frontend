@@ -25,6 +25,7 @@ body,
     flex-direction: column;
     background-color: #F4F4F8 !important;
     font-family: 'Poppins', sans-serif !important;
+    word-wrap: break-word;
 }
 
 /* Header */
@@ -81,7 +82,7 @@ body,
 
 /* Any Page Content */
 .page-content {
-    width: 50vw;
+    width: 100%;
     min-height: 100%;
     padding: 20px;
     /* Add some padding for spacing */
