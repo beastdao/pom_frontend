@@ -25,6 +25,7 @@ body,
     flex-direction: column;
     background-color: #F4F4F8 !important;
     font-family: 'Poppins', sans-serif !important;
+    word-wrap: break-word;
 }
 
 /* Header */
@@ -112,7 +113,7 @@ body,
 }
 
 .page-content-child {
-    width: 90%;
+    width: 60%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -139,7 +140,7 @@ body,
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 90%;
+    width: 100%;
     height: 90%;
 }
 
@@ -426,6 +427,10 @@ a {
     /* Removes excessive padding from h1 */
     .page-content h1 {
         width: auto;
+    }
+
+    .page-content-child {
+        width: 100%;
     }
 
 }
