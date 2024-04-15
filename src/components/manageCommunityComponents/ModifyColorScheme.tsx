@@ -35,11 +35,11 @@ function ModifyColorScheme({ searchValue, buttonsStatus }: { searchValue: string
 
 const colorSchemeNames: Record<ColorSchemeKeys, string> = {
   stBKG: 'Background',
-  stTextBox: 'Text Box',
-  stWitchFrameBKG: 'Frame Background',
+  stTextBox: 'Text box',
+  stWitchFrameBKG: 'Witch frame',
   stWitchSLT: 'Hair color',
   stWitchFace: 'Face color',
-  stCardTitle: 'Card Title',
+  stCardTitle: 'Card title',
   stTextCLR: 'Text color',
   stDrop1: 'Drops 1',
   stDrop2: 'Drops 2'
