@@ -21,7 +21,7 @@ const Header: React.FunctionComponent<{ pages: string[] }> = ({ pages }) => (
           Proof Of Membership
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" >
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav defaultActiveKey="/">
             {pages.map((page, index) => (
               <Nav.Item key={index}>
@@ -30,6 +30,8 @@ const Header: React.FunctionComponent<{ pages: string[] }> = ({ pages }) => (
                   to={
                     page === "🌈 CREATE COMMUNITY"
                       ? "/createcommunity"
+                      : page === "🗂️ COMMUNITY BASE"
+                      ? "/communitybase"
                       : page.replace(/\s+/g, "").toLowerCase()
                   }
                   eventKey={`/${page.replace(/\s+/g, "").toLowerCase()}`}
