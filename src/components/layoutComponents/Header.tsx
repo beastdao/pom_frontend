@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Header: React.FunctionComponent<{ pages: string[] }> = ({ pages }) => (
   <>
-    <Navbar expand="lg" className="bg-body-tertiary" collapseOnSelect={true}>
+    <Navbar expand="xl"  className="bg-body-tertiary" collapseOnSelect= {true}>
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img
