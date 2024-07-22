@@ -10,7 +10,7 @@ interface NamesRegistryWriteHookInterface {
 export function NamesRegistryWriteHook(fn: NamesRegistryWriteHookInterface) {
   const { write, data, error: writeError, isLoading, isError: isWriteError } = useContractWrite({
     ...namesRegistryConfig,
-    address: '0xe4599af01a9079392900A688E85F0d5E406B3106',
+    address: '0xF357fEb9B33Dc568aDc9d5382Ba69FD198832079',
     functionName: fn.functionName,
     args: fn.functionArgs,
     value: fn.txValue,
