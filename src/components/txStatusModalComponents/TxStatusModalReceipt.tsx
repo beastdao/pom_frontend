@@ -13,12 +13,14 @@ const TxStatusModalReceipt: React.FC<TxStatusModalReceiptProps> = ({
   receipt,
   ...props
 }) => {
+  const network = process.env.REACT_APP_ENV;
+  const etherscanBaseUrl = network === 'mainnet' ? 'https://etherscan.io' : network === 'sepolia' ? `https://sepolia.etherscan.io`: `https://sepolia.etherscan.io`;
   return (
     <TxStatusModalBasic {...props}>
       {isSuccess && receipt ? (
         <div className="mt">
           <p>Success!</p>
-          <a href={`https://sepolia.etherscan.io/tx/${receipt.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
+          <a href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
         </div>
       ) : null}
     </TxStatusModalBasic>
