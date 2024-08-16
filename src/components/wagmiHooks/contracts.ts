@@ -1,9 +1,10 @@
+import { currentContractAddresses } from './contractsAddresses';
 
 export const namesRegistryConfig: {
-  address: string;
+  address: `0x${string}`;
   abi: Array<any>;
 } = {
-  address: '0xF357fEb9B33Dc568aDc9d5382Ba69FD198832079',
+  address: currentContractAddresses.namesRegistry,
   abi: [
     {
     "inputs": [
@@ -777,8 +778,11 @@ export const namesRegistryConfig: {
   ]
 }
 
-export const svgRendererConfig = {
-  address: '0x21DA9d030582A8a59143A9568c24C1c8a7ef6c57',
+export const svgRendererConfig: {
+  address: `0x${string}`;
+  abi: Array<any>;
+  } = {
+  address: currentContractAddresses.svgRenderer,
   abi: [
     {
       "inputs": [
@@ -1006,8 +1010,11 @@ export const svgRendererConfig = {
     }
   ]
 }
-export const pomTokenConfig = {
-  address: '0xF318d982B8E55F9fa238b1392e0B8Ec3197D7080',
+export const pomTokenConfig : {
+  address: `0x${string}`;
+  abi: Array<any>;
+  }  = {
+  address: currentContractAddresses.pomToken,
   abi: [
     {
       "inputs": [

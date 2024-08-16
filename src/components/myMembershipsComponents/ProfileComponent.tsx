@@ -63,7 +63,7 @@ let decodedProfileJsonData: string = ''; // Initialize as an empty string
           <img src={errorIcon} / >
           <p><b>Error:</b> {profileJsonError && 'details' in profileJsonError && typeof profileJsonError.details === 'string' ? profileJsonError.details : 'An error occurred.'}</p>
           </div>
-      ) : (typeof profileJsonData === 'string' && profileJsonData.length > 0 ? (
+      ) : (typeof profileJsonData === 'string' && (profileJsonData as string).length > 0 ? (
         <div className="center">
         <Card className="pcCard" bg="light">
           <object

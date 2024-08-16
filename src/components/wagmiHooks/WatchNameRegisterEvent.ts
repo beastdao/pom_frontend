@@ -10,7 +10,6 @@ export function WatchNameRegisterEvent(txHash: string | undefined) {
 
   useContractEvent({
     ...namesRegistryConfig,
-    address: '0xF357fEb9B33Dc568aDc9d5382Ba69FD198832079',
     eventName: 'nameRegistred',
     listener: (logs) => {
       if ((logs as any).transactionHash === txHash) {

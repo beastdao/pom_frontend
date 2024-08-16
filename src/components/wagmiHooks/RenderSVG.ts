@@ -37,24 +37,11 @@ export var defaultColorScheme = {
   stDrop2: "#61bbdd"
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 export function RenderSVG(nameAtCommunity: string, memberSince: string, role: string, communityName: string, colorScheme?: ColorScheme) {
   const finalColorScheme = colorScheme ?? defaultColorScheme;
 
   const { data, refetch, isError, isLoading } = useContractRead({
     ...svgRendererConfig,
-    address: "0x21DA9d030582A8a59143A9568c24C1c8a7ef6c57",
     functionName: 'RenderSVGDummy',
     args: [nameAtCommunity, memberSince, role, communityName, finalColorScheme],
     //watch: true,

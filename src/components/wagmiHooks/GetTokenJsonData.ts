@@ -13,7 +13,6 @@ export function GetTokenJsonData(nameAtCommunity: string) {
 
   const { data, refetch, isError, isLoading, error } = useContractRead({
     ...pomTokenConfig,
-    address: '0xF318d982B8E55F9fa238b1392e0B8Ec3197D7080',
     functionName: 'tokenURI',
     args: [tokenId_],
     //watch: true,
