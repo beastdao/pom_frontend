@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { currentNetwork } from '../wagmiHooks/contractsAddresses';
 
 export interface Community {
   tx_hash: string;
@@ -8,7 +9,7 @@ export interface Community {
 }
 
 export async function FetchRecentCommunities(): Promise<Community[] | null> {
-  const callUrl = `${process.env.REACT_APP_BACKEND_URL_COMMUNITIES}`;
+  const callUrl = `${process.env.REACT_APP_BACKEND_URL}/${currentNetwork}/communities/`
   try {
     const response = await axios(callUrl);
     if (response.status === 200) {
