@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { currentNetwork } from '../wagmiHooks/contractsAddresses';
 
 interface Metadata {
   name: string;
@@ -17,7 +18,7 @@ export async function FetchMembershipsDataAPI(userAddress : string | undefined):
     console.log("Connect Wallet");
     return null;
   }
-  const callUrl = `${process.env.REACT_APP_BACKEND_URL_MEMBERSHIPS}${userAddress}`;
+  const callUrl = `${process.env.REACT_APP_BACKEND_URL}/${currentNetwork}/memberships/${userAddress}`;
   try {
 
     const response = await axios(callUrl);
