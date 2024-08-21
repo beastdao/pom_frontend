@@ -66,13 +66,14 @@ function NameSearch() {
   } = NamesRegistryReadHook({ functionName: 'availableName', functionArgs: [nameValue, communityValue] });
 
   const {
-    data: dataNameInCommunityByAddress,
-    isError: isErrorNameInCommunityByAddress,
-    isLoading: isLoadingNameInCommunityByAddress,
-  } = address ? NamesRegistryReadHook({
-    functionName: 'getNameInCommunityByAddress',
-    functionArgs: [address.toString(), communityValue]
-  }) : { data: undefined, isError: false, isLoading: false };
+  data: dataNameInCommunityByAddress,
+  isError: isErrorNameInCommunityByAddress,
+  isLoading: isLoadingNameInCommunityByAddress,
+} = NamesRegistryReadHook({
+  functionName: 'getNameInCommunityByAddress',
+  functionArgs: address ? [address.toString(), communityValue] : ["0x0000000000000000000000000000000000000000", ""]
+});
+
 
 
   useEffect(() => {
