@@ -1038,3 +1038,47 @@ export const pomTokenConfig : {
     }
   ]
 }
+export const storageConfig : {
+  address: `0x${string}`;
+  abi: Array<any>;
+  }  = {
+  address: currentContractAddresses.storage,
+  abi: [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getMembershipData",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "community",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "memberSince",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct CardIndex.MembershipData",
+          "name": "membershipData_",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
