@@ -1,6 +1,6 @@
 import { Types } from "connectkit";
 
-const MyCustomAvatar = ({ address, size, radius }: Types.CustomAvatarProps) => {
+const MyCustomAvatar = ({ size, radius,}: Types.CustomAvatarProps) => {
 
   return (
     <div
