@@ -10,6 +10,7 @@ import { useAccount } from 'wagmi';
 import Alert from 'react-bootstrap/Alert';
 import { calculateTokenId } from '../utils/calculateTokenId';
 import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
+import { ConnectButton } from "../connectKit/ConnectButton";
 
 function checkName(textData: boolean, membershipData: boolean) {
   let feedback;
@@ -224,6 +225,10 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
   const tos_url = "https://drive.google.com/file/d/1nQ0Zrc218dltS4_VLLozjO6Scq_EofOB/view";
 
+  function handleConnectClick(event: any) {
+  event.preventDefault();
+
+}
 
   return (
     <div className="hcc2">
@@ -273,7 +278,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
           {isLoadingSVG || isErrorSVG || !dataSVG ? 'loading...' :
             <object data={imgData} type="image/svg+xml"> Card image </object>}
           <Card.Body>
-
+            {address ?(
             <Button
               variant="dark"
               type="button"
@@ -281,8 +286,15 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
               onClick={handleRegisterClick} // Call the function when the "Register" button is clicked
             >
               Register
-            </Button>
-
+            </Button>) :
+            (
+            <button
+              type="button" onClick={handleConnectClick}
+              style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+>
+              <ConnectButton />
+            </button>
+    )}
           </Card.Body>
         </Card>
 
