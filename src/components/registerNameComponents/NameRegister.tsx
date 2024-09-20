@@ -11,7 +11,6 @@ import Alert from 'react-bootstrap/Alert';
 import { calculateTokenId } from '../utils/calculateTokenId';
 import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
 
-
 function checkName(textData: boolean, membershipData: boolean) {
   let feedback;
   let validity;
@@ -50,9 +49,7 @@ function checkIfAdmin(isAdminData: string | undefined, userAddress: string | und
   return isAdminData === userAddress ? "Admin" : "Basic Member";
 }
 
-
 function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
-
   const navigate = useNavigate();
   const [feedBackText, setFeedBackText] = useState<string>('');
   const [inputValidity, setInputValidity] = useState<string | null>(null);
@@ -66,9 +63,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
   const [errorCount, setErrorCount] = useState<number>(0);
   const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
   const [CS, setCS] = useState<ColorScheme | undefined>(undefined);
-  /*
 
- */
   let [nameValue, communityValue] = nameAtCommunity.split("@");
 
   const tokenId: string | undefined = calculateTokenId(nameValue, communityValue);
@@ -82,17 +77,16 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     isLoading,
   } = NamesRegistryReadHook({ functionName: 'availableName', functionArgs: [nameValue, communityValue] });
 
-
   const {
-    data: dataNameInCommunityByAddress,
-    isError: isErrorNameInCommunityByAddress,
-    isLoading: isLoadingNameInCommunityByAddress,
-  } = address ? NamesRegistryReadHook({
-    functionName: 'getNameInCommunityByAddress',
-    functionArgs: [address?.toString(), communityValue]
-  }) : { data: undefined, isError: false, isLoading: false };
+  data: dataNameInCommunityByAddress,
+  isError: isErrorNameInCommunityByAddress,
+  isLoading: isLoadingNameInCommunityByAddress,
+} = NamesRegistryReadHook(
+  address ? { functionName: 'getNameInCommunityByAddress', functionArgs: [address, communityValue] }
+          : { functionName: '', functionArgs: [] }
+);
 
-  console.log(dataNameInCommunityByAddress);
+
   const {
     data: dataIsAdmin,
     refetch: refetchIsAdmin,
@@ -100,19 +94,30 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     isLoading: isLoadingIsAdmin,
   } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [communityValue] });
 
+  const defaultColorScheme = {
+    stBKG: "#000",
+    stTextBox: "#fff",
+    stWitchFrameBKG: "#ac80f3",
+    stWitchSLT: "#000",
+    stWitchFace: "#fff",
+    stCardTitle: "#fff",
+    stTextCLR: "#000",
+    stDrop1: "#ac80f3",
+    stDrop2: "#61bbdd"
+  };
 
-  const {
-    data: fetchedDataCS,
-  } = NamesRegistryReadHook({ functionName: 'getCommunityColorScheme', functionArgs: [communityValue] });
-
-
-  console.log(fetchedDataCS as unknown as ColorScheme);
+  const { data: fetchedDataCS = defaultColorScheme } = communityValue
+      ? NamesRegistryReadHook({
+          functionName: 'getCommunityColorScheme',
+          functionArgs: [communityValue],
+        })
+      : {};
 
   useEffect(() => {
-    if (fetchedDataCS) {
+  if (fetchedDataCS) {
       setCS(fetchedDataCS as unknown as ColorScheme);
     } else {
-      console.error('Invalid color scheme data:', fetchedDataCS);
+      setCS(defaultColorScheme);
     }
   }, [fetchedDataCS]);
 
@@ -123,9 +128,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     isError: isErrorSVG,
     isLoading: isLoadingSVG,
   } = RenderSVG(nameAtCommunity, formattedDate, memberRole, communityValue, CS);
-
-
-
 
   const {
     write: writeRegName,
@@ -140,9 +142,8 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     txRefetch: txRefetchRegName,
   } = NamesRegistryWriteHook({ functionName: 'registerName', functionArgs: [nameValue, communityValue], txValue: BigInt(0) });
 
-
   useEffect(() => {
-    if (dataNameInCommunityByAddress !== undefined) {
+    if (address && dataNameInCommunityByAddress !== undefined) {
       if (address === undefined || dataNameInCommunityByAddress.toString() === "0") {
         setAlreadyHasName(false);
       } else {
@@ -163,8 +164,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     }
   }, [dataSVG, imgData]);
 
-
-  //check if name is already taken
   useEffect(() => {
     const intervalId = setInterval(() => {
       refetch();
@@ -173,7 +172,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [refetch]);
 
   useEffect(() => {
     let [status, validity] = checkName(Boolean(data), Boolean(alreadyHasName));
@@ -189,7 +188,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     }
   }, [feedBackText, isChecked, address, alreadyHasName, isLoadingIsAdmin]);
 
-  //refetching
   useEffect(() => {
     if (isErrorRegNameTx && errorCount <= 5) {
       const timer = setTimeout(() => {
@@ -201,8 +199,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     if (isPendingRegName || isSuccessRegName) {
       setErrorCount(0);
     }
-  }, [isErrorRegNameTx, isPendingRegName, isSuccessRegName, errorCount, isErrorRegNameTx]);
-
+  }, [isErrorRegNameTx, errorCount, txRefetchRegName, isPendingRegName, isSuccessRegName]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -212,7 +209,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     return isChecked;
   };
 
-
   const handleRegisterClick = () => {
     writeRegName?.();
     setIsButtonClicked(true);
@@ -220,7 +216,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
   };
 
 
-  // Function to close the modal
   const closeModal = () => {
     setShowModal(false);
     setIsButtonClicked(false);
@@ -260,17 +255,16 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
               </div>
             </Alert>
           ))}
-
         </>
 
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
             type="checkbox"
             label={
-                    <span>
-                      I accept the <a href={tos_url}>Terms and Conditions</a>
-                    </span>
-                  }
+              <span>
+                I accept the <a href={tos_url}>Terms and Conditions</a>
+              </span>
+            }
             isInvalid={!isCheckboxValid()}
             onChange={handleCheckboxChange}
           />
@@ -288,11 +282,11 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
             >
               Register
             </Button>
+
           </Card.Body>
         </Card>
 
         {isButtonClicked && (
-
           <TxStatusModalWithTokenId
             show={showModal}
             onClose={closeModal}
@@ -307,7 +301,6 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
             receipt={receiptRegName ? receiptRegName : undefined}
             tokenId={tokenId ? tokenId : undefined}
           />
-
         )}
       </Form>
     </div>
