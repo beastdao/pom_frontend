@@ -163,6 +163,9 @@ body,
   height: auto;
   width: 100%;
 }
+.hcc2t {
+  margin: 5vh auto;
+}
 
 .nameregister {
   width: 100%;
@@ -439,6 +442,9 @@ a {
   .hcc1 {
     display: flex;
     flex-direction: column;
+  }
+  .hcc2t{
+    width: 100%;
   }
 
   /* Removes  excessive spacing from create community page in smaller screens*/

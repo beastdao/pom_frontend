@@ -8,6 +8,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
+import Toast from 'react-bootstrap/Toast';
+
 
 //no function isCommunityAvailable that returns bool
 function checkCommunity(textData: string) {
@@ -240,7 +242,17 @@ function NameSearch() {
         <Button variant="dark" onClick={handleButtonClick} disabled={buttonStatus === 'disabled'}>
           PROCEED
         </Button>
+
+        <div className="hcc2t">
+          <Toast bg="light">
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto"> GET A FREE ETH NAME NOW! </strong>
+          </Toast.Header>
+          <Toast.Body>Your 100% free, human-readable name on Ethereum like <strong> alice@eth</strong> </Toast.Body>
+        </Toast>
       </div>
+      </div>
+
       <div className="rcbt">
         <div className="rcbt-c1">
           <p>{recentCommunities ? "Most recent communities:" : ""}</p>
