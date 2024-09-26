@@ -41,7 +41,7 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
   const { address } = useAccount();
 
   const buffer = Buffer.from(searchValue, 'utf8');
-  const communityHash = keccak256(buffer);
+  const communityHash = keccak256(new Uint8Array(buffer));
 
   const {
     data: dataCommunitySearch,
