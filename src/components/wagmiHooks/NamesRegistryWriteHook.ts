@@ -1,4 +1,4 @@
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { namesRegistryConfig } from './contracts';
 
 interface NamesRegistryWriteHookInterface {
@@ -8,16 +8,18 @@ interface NamesRegistryWriteHookInterface {
 }
 
 export function NamesRegistryWriteHook(fn: NamesRegistryWriteHookInterface) {
-  const { write, data, error: writeError, isLoading, isError: isWriteError } = useContractWrite({
+  const {writeContract, data, error: writeError, isPending, isError: isWriteError } = useWriteContract();
+    const write = () => writeContract(
+    {
     ...namesRegistryConfig,
     functionName: fn.functionName,
     args: fn.functionArgs,
     value: fn.txValue,
   });
 
-  const { data: receipt, isLoading: isPending, isSuccess, isError: isTxError, error: txError, refetch: txRefetch } = useWaitForTransaction({
+  const { data: receipt, isLoading, isSuccess, isError: isTxError, error: txError, refetch: txRefetch } = useWaitForTransactionReceipt({
     confirmations: 1,
-    hash: data?.hash,
+    hash: data,
   });
 
   return {
