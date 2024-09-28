@@ -3,7 +3,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { currentContractAddresses } from '../wagmiHooks/contractsAddresses';
 
 declare global {
-  interface Window { ethereum: any; }
+  interface Window { ethereum?: any; }
 }
 
 

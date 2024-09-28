@@ -14,10 +14,11 @@ import MyCommunities from "./pages/MyCommunities";
 import MyCards from "./pages/MyCards";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS here
 import config from "./config";
-import { WagmiConfig } from "wagmi";
+import { WagmiProvider } from "wagmi";
 import { ConnectKitProvider } from "connectkit";
 import MyCustomAvatar from "./components/connectKit/MyCustomAvatar";
 import CommunityBase from "./pages/CommunityBase";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const App: React.FunctionComponent = () => {
   const pages: string[] = [
@@ -27,9 +28,10 @@ const App: React.FunctionComponent = () => {
     "MY COMMUNITIES",
     "ABOUT",
   ];
-
+  const queryClient = new QueryClient();
   return (
-    <WagmiConfig config={config}>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
       <ConnectKitProvider
         theme="nouns"
         options={{
@@ -146,7 +148,8 @@ const App: React.FunctionComponent = () => {
           </div>
         </Router>
       </ConnectKitProvider>
-    </WagmiConfig>
+  </QueryClientProvider>
+  </WagmiProvider>
   );
 };
 
