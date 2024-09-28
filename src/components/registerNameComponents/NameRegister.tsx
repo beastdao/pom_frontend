@@ -285,7 +285,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
               disabled={buttonStatus === 'disabled'}
               onClick={handleRegisterClick} // Call the function when the "Register" button is clicked
             >
-              Register
+              Get now
             </Button>) :
             (
             <button
