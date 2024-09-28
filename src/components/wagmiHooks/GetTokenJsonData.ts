@@ -1,7 +1,6 @@
 import { useReadContract } from 'wagmi';
 import { pomTokenConfig } from './contracts';
-import { keccak256 } from 'viem';
-import { ethers } from 'ethers';
+import  {keccak256, ethers} from 'ethers';
 
 
 export function GetTokenJsonData(nameAtCommunity: string) {
