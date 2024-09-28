@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import { storageConfig } from './contracts';
 
 type MembershipData = {
@@ -8,7 +8,7 @@ type MembershipData = {
 };
 
 export function useGetMembershipData(tokenId: any) {
-  const { data, refetch, isError, isLoading } = useContractRead({
+  const { data, refetch, isError, isLoading } = useReadContract({
     ...storageConfig,
     functionName: 'getMembershipData',
     args: [tokenId],
