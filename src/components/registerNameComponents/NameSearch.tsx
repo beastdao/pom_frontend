@@ -168,7 +168,7 @@ function NameSearch() {
 
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | undefined;
+      let intervalId: Timer | undefined;
 
     if (isErrorCommunity || isErrorName) {
       console.log("refetching")

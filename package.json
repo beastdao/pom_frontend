@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -11,7 +12,6 @@
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",
-    "bignumber.js": "^9.1.2",
     "bootstrap": "^5.3.3",
     "connectkit": "1.8.2",
     "ethers": "^6.13.2",
@@ -22,10 +22,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1",
     "serve": "^14.2.3",
-    "stream-browserify": "^3.0.0",
-    "typescript": "^5.6.2",
-    "viem": "2.21.15",
-    "wagmi": "2.12.16",
+    "wagmi": "^2.12.16",
     "web-vitals": "^4.2.3"
   },
   "scripts": {
@@ -62,20 +59,8 @@
     "fs": false
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
     "@types/react-helmet": "^6.1.11",
-    "@types/styled-components": "^5.1.34",
-    "stream": "npm:stream-browserify@^3.0.0",
-    "net": "npm:net-browserify@^0.2.4",
-    "http": "npm:stream-http@^3.2.0",
-    "https": "npm:https-browserify@^1.0.0",
-    "url": "npm:url@^0.11.4",
-    "crypto": "npm:crypto-browserify@3.12.0",
-    "tls": "npm:tls-browserify@0.2.2",
-    "zlib": "npm:browserify-zlib@^0.2.0",
-    "assert": "npm:assert@^2.1.0",
-    "timers": "npm:timers-browserify@^2.0.12",
-    "os": "npm:os-browserify@^0.3.0",
-    "fs": "npm:browserify-fs@^1.0.0",
-    "path": "npm:path-browserify@^1.0.1"
+    "@types/styled-components": "^5.1.34"
   }
 }

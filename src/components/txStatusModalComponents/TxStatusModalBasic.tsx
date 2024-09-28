@@ -46,7 +46,7 @@ const TxStatusModalBasic: React.FC<ModalContentProps> = ({
               <p>RPC Node connection is unstable. Attempt to connect {errorCount} Please wait...</p>
               <Spinner animation="border" variant="secondary" />
             </>
-          ) : errorCount==6 ? (
+          ) : errorCount===6 ? (
             <p><b>Error:</b> {txError && 'details' in txError && typeof txError.details === 'string' ? txError.details : 'An error occurred.'}</p>
           ) : isWriteError ? (
             <p><b>Error:</b> {writeError && 'details' in writeError && typeof writeError.details === 'string' ? writeError.details : 'An error occurred.'}</p>

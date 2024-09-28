@@ -1,5 +1,4 @@
-import { keccak256 } from 'viem';
-import {ethers} from 'ethers';
+import  {keccak256, ethers} from 'ethers';
 
 export const calculateTokenId = (nameValue:string|undefined,  communityValue:string|undefined) :string | undefined => {
 if(nameValue && communityValue){

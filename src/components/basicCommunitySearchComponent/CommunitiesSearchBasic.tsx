@@ -93,7 +93,7 @@ const CommunitiesSearchBasic: React.FC<CommunitiesSearchBasicProps> = ({
   }, [searchValue, isLoadingCommunitySearch, dataCommunitySearch, comparisonData]);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | undefined;
+    let intervalId: Timer | undefined;
 
     if (isErrorCommunitySearch) {
       intervalId = setInterval(() => {

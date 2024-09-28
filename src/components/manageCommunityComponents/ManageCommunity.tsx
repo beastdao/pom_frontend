@@ -6,7 +6,7 @@ import SuspendUnsuspendCommunity from './SuspendUnsuspendCommunity';
 import ModifyColorScheme from './ModifyColorScheme';
 import { useAccount } from 'wagmi';
 import Alert from 'react-bootstrap/Alert';
-import { keccak256 } from 'viem';
+import { keccak256 } from 'ethers';
 
 
 
