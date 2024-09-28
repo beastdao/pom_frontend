@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import { namesRegistryConfig } from './contracts';
 
 
@@ -8,7 +8,7 @@ interface NamesRegistryReadHookInterface {
 }
 
 export function NamesRegistryReadHook(fn: NamesRegistryReadHookInterface) {
-  const { data, refetch, isError, isLoading } = useContractRead({
+  const { data, refetch, isError, isLoading } = useReadContract({
     ...namesRegistryConfig,
     functionName: fn.functionName,
     args: fn.functionArgs,

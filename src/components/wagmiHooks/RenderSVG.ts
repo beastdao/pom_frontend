@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import { svgRendererConfig } from './contracts';
 
 export type ColorScheme = {
@@ -40,7 +40,7 @@ export var defaultColorScheme = {
 export function RenderSVG(nameAtCommunity: string, memberSince: string, role: string, communityName: string, colorScheme?: ColorScheme) {
   const finalColorScheme = colorScheme ?? defaultColorScheme;
 
-  const { data, refetch, isError, isLoading } = useContractRead({
+  const { data, refetch, isError, isLoading } = useReadContract({
     ...svgRendererConfig,
     functionName: 'RenderSVGDummy',
     args: [nameAtCommunity, memberSince, role, communityName, finalColorScheme],

@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import { pomTokenConfig } from './contracts';
 import { keccak256 } from 'viem';
 import { ethers } from 'ethers';
@@ -11,7 +11,7 @@ export function GetTokenJsonData(nameAtCommunity: string) {
   const tokenId_ = ethers.getBigInt(hashValue).toString();
 
 
-  const { data, refetch, isError, isLoading, error } = useContractRead({
+  const { data, refetch, isError, isLoading, error } = useReadContract({
     ...pomTokenConfig,
     functionName: 'tokenURI',
     args: [tokenId_],
