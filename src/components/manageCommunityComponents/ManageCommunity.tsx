@@ -6,7 +6,6 @@ import SuspendUnsuspendCommunity from './SuspendUnsuspendCommunity';
 import ModifyColorScheme from './ModifyColorScheme';
 import { useAccount } from 'wagmi';
 import Alert from 'react-bootstrap/Alert';
-import { keccak256 } from 'ethers';
 
 
 
@@ -40,8 +39,6 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
   const [isCommunityVerified, setIsCommunityVerified] = useState('...');
   const { address } = useAccount();
 
-  const buffer = Buffer.from(searchValue, 'utf8');
-  const communityHash = keccak256(new Uint8Array(buffer));
 
   const {
     data: dataCommunitySearch,
