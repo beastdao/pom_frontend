@@ -24,7 +24,11 @@ const TxStatusModalReceipt: React.FC<TxStatusModalReceiptProps> = ({
             {isSuccess && receipt ? (
                 <div className="mt">
                     <p>Success!</p>
-                    <a href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`} target="_blank">
+                    <a
+                        href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         View transaction on <b>Etherscan</b>
                     </a>
                 </div>

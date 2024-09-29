@@ -105,7 +105,7 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
 
     useEffect(() => {
         if (dataCommunitySearch !== undefined) {
-            let [status, validity, buttonsStatus] = checkCommunityAdmin(
+            const [status, validity, buttonsStatus] = checkCommunityAdmin(
                 dataCommunitySearch?.toString(),
                 address?.toString()
             );

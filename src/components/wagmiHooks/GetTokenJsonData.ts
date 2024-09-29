@@ -3,7 +3,7 @@ import { pomTokenConfig } from './contracts';
 import { keccak256, ethers } from 'ethers';
 
 export function GetTokenJsonData(nameAtCommunity: string) {
-    let [nameValue, communityValue] = nameAtCommunity.split('@');
+    const [nameValue, communityValue] = nameAtCommunity.split('@');
     const buffer = Buffer.from(nameValue + communityValue, 'utf8');
     const hashValue = keccak256(new Uint8Array(buffer));
     const tokenId_ = ethers.getBigInt(hashValue).toString();

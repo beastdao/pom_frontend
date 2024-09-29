@@ -115,7 +115,7 @@ function NameSearch() {
             setCommunityValidity(matchingConditionCommunity.inputValidity);
             setButtonStatus(matchingConditionCommunity.buttonStatus);
         } else if (dataCommunity !== undefined) {
-            let [status, validity] = checkCommunity(dataCommunity.toString());
+            const [status, validity] = checkCommunity(dataCommunity.toString());
             setCommunityFeedbackText(status);
             setCommunityValidity(validity);
         }
@@ -139,7 +139,7 @@ function NameSearch() {
             setNameValidity(matchingConditionName.inputValidity);
             setButtonStatus(matchingConditionName.buttonStatus);
         } else if (dataName !== undefined && communityValidity === 'isValid') {
-            let [status, validity, buttonStatus] = checkName(
+            const [status, validity, buttonStatus] = checkName(
                 Boolean(dataName),
                 Boolean(alreadyHasName)
             );

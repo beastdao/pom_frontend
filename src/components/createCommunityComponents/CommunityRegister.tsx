@@ -76,7 +76,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
 
     useEffect(() => {
         if (dataCommunityRegister !== undefined) {
-            let [status, validity] = checkCommunity(dataCommunityRegister.toString());
+            const [status, validity] = checkCommunity(dataCommunityRegister.toString());
             setFeedBackText(status);
             setInputValidity(validity);
         }
@@ -184,7 +184,11 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
                                 </p>
                                 <p>
                                     Membership Cards have initial color scheme designed by{' '}
-                                    <a href={`https://beastdao.org`} target="_blank">
+                                    <a
+                                        href={`https://beastdao.org`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
                                         BEAST
                                     </a>
                                     .
