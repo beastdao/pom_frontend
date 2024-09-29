@@ -1,30 +1,36 @@
 import React from 'react';
-import TxStatusModalBasic,{ModalContentProps} from './TxStatusModalBasic';
-import {TransactionReceipt} from 'viem';
-
+import TxStatusModalBasic, { ModalContentProps } from './TxStatusModalBasic';
+import { TransactionReceipt } from 'viem';
 
 interface TxStatusModalReceiptProps extends ModalContentProps {
-  isSuccess: boolean;
-  receipt: TransactionReceipt | undefined;
+    isSuccess: boolean;
+    receipt: TransactionReceipt | undefined;
 }
 
 const TxStatusModalReceipt: React.FC<TxStatusModalReceiptProps> = ({
-  isSuccess,
-  receipt,
-  ...props
+    isSuccess,
+    receipt,
+    ...props
 }) => {
-  const network = process.env.REACT_APP_ENV;
-  const etherscanBaseUrl = network === 'mainnet' ? 'https://etherscan.io' : network === 'sepolia' ? `https://sepolia.etherscan.io`: `https://sepolia.etherscan.io`;
-  return (
-    <TxStatusModalBasic {...props}>
-      {isSuccess && receipt ? (
-        <div className="mt">
-          <p>Success!</p>
-          <a href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`} target="_blank">View transaction on <b>Etherscan</b></a>
-        </div>
-      ) : null}
-    </TxStatusModalBasic>
-  );
-}
+    const network = process.env.REACT_APP_ENV;
+    const etherscanBaseUrl =
+        network === 'mainnet'
+            ? 'https://etherscan.io'
+            : network === 'sepolia'
+              ? `https://sepolia.etherscan.io`
+              : `https://sepolia.etherscan.io`;
+    return (
+        <TxStatusModalBasic {...props}>
+            {isSuccess && receipt ? (
+                <div className="mt">
+                    <p>Success!</p>
+                    <a href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`} target="_blank">
+                        View transaction on <b>Etherscan</b>
+                    </a>
+                </div>
+            ) : null}
+        </TxStatusModalBasic>
+    );
+};
 
 export default TxStatusModalReceipt;

@@ -2,15 +2,15 @@ import { useReadContract } from 'wagmi';
 import { svgRendererConfig } from './contracts';
 
 export type ColorScheme = {
-  stBKG: string;
-  stTextBox: string;
-  stWitchFrameBKG: string;
-  stWitchSLT: string;
-  stWitchFace: string;
-  stCardTitle: string;
-  stTextCLR: string;
-  stDrop1: string;
-  stDrop2: string;
+    stBKG: string;
+    stTextBox: string;
+    stWitchFrameBKG: string;
+    stWitchSLT: string;
+    stWitchFace: string;
+    stCardTitle: string;
+    stTextCLR: string;
+    stDrop1: string;
+    stDrop2: string;
 };
 /*
 export var defaultColorScheme = {
@@ -26,32 +26,37 @@ export var defaultColorScheme = {
 };
 */
 export var defaultColorScheme = {
-  stBKG: "#000000",
-  stTextBox: "#ffffff",
-  stWitchFrameBKG: "#ac80f3",
-  stWitchSLT: "#000000",
-  stWitchFace: "#ffffff",
-  stCardTitle: "#ad63ba",
-  stTextCLR: "#000000",
-  stDrop1: "#ac80f3",
-  stDrop2: "#61bbdd"
+    stBKG: '#000000',
+    stTextBox: '#ffffff',
+    stWitchFrameBKG: '#ac80f3',
+    stWitchSLT: '#000000',
+    stWitchFace: '#ffffff',
+    stCardTitle: '#ad63ba',
+    stTextCLR: '#000000',
+    stDrop1: '#ac80f3',
+    stDrop2: '#61bbdd',
 };
 
-export function RenderSVG(nameAtCommunity: string, memberSince: string, role: string, communityName: string, colorScheme?: ColorScheme) {
-  const finalColorScheme = colorScheme ?? defaultColorScheme;
+export function RenderSVG(
+    nameAtCommunity: string,
+    memberSince: string,
+    role: string,
+    communityName: string,
+    colorScheme?: ColorScheme
+) {
+    const finalColorScheme = colorScheme ?? defaultColorScheme;
 
-  const { data, refetch, isError, isLoading } = useReadContract({
-    ...svgRendererConfig,
-    functionName: 'RenderSVGDummy',
-    args: [nameAtCommunity, memberSince, role, communityName, finalColorScheme],
-    //watch: true,
-  });
+    const { data, refetch, isError, isLoading } = useReadContract({
+        ...svgRendererConfig,
+        functionName: 'RenderSVGDummy',
+        args: [nameAtCommunity, memberSince, role, communityName, finalColorScheme],
+        //watch: true,
+    });
 
-
-  return {
-    data,
-    refetch,
-    isError,
-    isLoading,
-  };
+    return {
+        data,
+        refetch,
+        isError,
+        isLoading,
+    };
 }
