@@ -10,3 +10,7 @@ how to run:
 2. `bun run build`
 
 3. `bun run start`
+
+### Contributors
+
+After making changes, you need to  run linter `bun run lint` and format the code with `bun run fmt`
