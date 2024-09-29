@@ -1,79 +1,79 @@
 {
-  "name": "pom-frontend-ts",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@tanstack/react-query": "^5.56.2",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/bun": "^1.1.10",
-    "@types/jest": "^29.5.13",
-    "@types/react": "^18.3.10",
-    "@types/react-dom": "^18.3.0",
-    "axios": "^1.7.7",
-    "bootstrap": "^5.3.3",
-    "connectkit": "1.8.2",
-    "ethers": "^6.13.2",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.5",
-    "react-dom": "^18.3.1",
-    "react-helmet": "^6.1.0",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "^5.0.1",
-    "serve": "^14.2.3",
-    "typescript": "^5.6.2",
-    "viem": "^2.21.15",
-    "wagmi": "^2.12.16",
-    "web-vitals": "^4.2.3"
-  },
-  "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
-    "build": "react-scripts build",
-    "lint": "eslint '**/*.{ts,tsx}'",
-    "fmt": "prettier --ignore-path .gitignore --write \"**/*.+(ts|json|tsx)\"",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "bun run build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      "chrome >= 67",
-      "edge >= 79",
-      "firefox >= 68",
-      "opera >= 54",
-      "safari >= 14"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "browser": {
-    "tls": false,
-    "net": false,
-    "fs": false
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "@testing-library/dom": "^10.4.0",
-    "@types/react-helmet": "^6.1.11",
-    "@types/styled-components": "^5.1.34",
-    "@typescript-eslint/eslint-plugin": "^8.7.0",
-    "@typescript-eslint/parser": "^8.7.0",
-    "eslint": "^9.11.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.37.0",
-    "globals": "^15.9.0",
-    "prettier": "3.3.3",
-    "typescript-eslint": "^8.7.0"
-  }
+    "name": "pom-frontend-ts",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@tanstack/react-query": "^5.56.2",
+        "@testing-library/jest-dom": "^6.5.0",
+        "@testing-library/react": "^16.0.1",
+        "@testing-library/user-event": "^14.5.2",
+        "@types/bun": "^1.1.10",
+        "@types/jest": "^29.5.13",
+        "@types/react": "^18.3.10",
+        "@types/react-dom": "^18.3.0",
+        "axios": "^1.7.7",
+        "bootstrap": "^5.3.3",
+        "connectkit": "1.8.2",
+        "ethers": "^6.13.2",
+        "react": "^18.3.1",
+        "react-bootstrap": "^2.10.5",
+        "react-dom": "^18.3.1",
+        "react-helmet": "^6.1.0",
+        "react-router-dom": "^6.26.2",
+        "react-scripts": "^5.0.1",
+        "serve": "^14.2.3",
+        "typescript": "^5.6.2",
+        "viem": "^2.21.15",
+        "wagmi": "^2.12.16",
+        "web-vitals": "^4.2.3"
+    },
+    "scripts": {
+        "dev": "react-scripts start",
+        "start": "serve -s build",
+        "build": "react-scripts build",
+        "lint": "eslint '**/*.{ts,tsx}'",
+        "fmt": "prettier --ignore-path .gitignore --write \"**/*.+(ts|json|tsx)\"",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "heroku-postbuild": "bun run build"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            "chrome >= 67",
+            "edge >= 79",
+            "firefox >= 68",
+            "opera >= 54",
+            "safari >= 14"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "browser": {
+        "tls": false,
+        "net": false,
+        "fs": false
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.11.1",
+        "@testing-library/dom": "^10.4.0",
+        "@types/react-helmet": "^6.1.11",
+        "@types/styled-components": "^5.1.34",
+        "@typescript-eslint/eslint-plugin": "^8.7.0",
+        "@typescript-eslint/parser": "^8.7.0",
+        "eslint": "^9.11.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-react": "^7.37.0",
+        "globals": "^15.9.0",
+        "prettier": "3.3.3",
+        "typescript-eslint": "^8.7.0"
+    }
 }
