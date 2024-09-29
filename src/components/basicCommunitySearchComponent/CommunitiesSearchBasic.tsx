@@ -88,7 +88,7 @@ const CommunitiesSearchBasic: React.FC<CommunitiesSearchBasicProps> = ({
             setButtonStatus(matchingCondition.buttonStatus);
         } else {
             if (dataCommunitySearch !== undefined) {
-                let [status, validity, buttonStatus] = checkCommunity(
+                const [status, validity, buttonStatus] = checkCommunity(
                     dataCommunitySearch.toString(),
                     comparisonData,
                     feedBackTextValid,

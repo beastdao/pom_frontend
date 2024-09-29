@@ -23,7 +23,7 @@ const PageContent: React.FunctionComponent<PageContentProps> = ({ children }) =>
                     >
                         <b>PoM is in Beta</b> We are now in the active development stage, various
                         errors and bugs may occur!{' '}
-                        <a href="https://discord.gg/McqF7vyCWx" target="_blank">
+                        <a href="https://discord.gg/McqF7vyCWx" target="_blank" rel="noreferrer">
                             <b>Join our Discord</b>
                         </a>
                     </Alert>

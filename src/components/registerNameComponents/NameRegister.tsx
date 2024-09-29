@@ -74,7 +74,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
     const [CS, setCS] = useState<ColorScheme | undefined>(undefined);
 
-    let [nameValue, communityValue] = nameAtCommunity.split('@');
+    const [nameValue, communityValue] = nameAtCommunity.split('@');
 
     const tokenId: string | undefined = calculateTokenId(nameValue, communityValue);
 
@@ -193,7 +193,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     }, [refetch]);
 
     useEffect(() => {
-        let [status, validity] = checkName(Boolean(data), Boolean(alreadyHasName));
+        const [status, validity] = checkName(Boolean(data), Boolean(alreadyHasName));
         setFeedBackText(status);
         setInputValidity(validity);
     }, [data, alreadyHasName]);

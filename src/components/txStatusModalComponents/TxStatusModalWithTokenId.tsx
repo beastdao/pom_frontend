@@ -31,7 +31,11 @@ const TxStatusModalWithTokenId: React.FC<TxStatusModalWithTokenIdProps> = ({
                         {' '}
                         <b>Token ID:</b> {tokenId}{' '}
                     </p>
-                    <a href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`} target="_blank">
+                    <a
+                        href={`${etherscanBaseUrl}/tx/${receipt.transactionHash}`}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         View transaction on <b>Etherscan</b>
                     </a>
                     <AddTokenToWallet tokenIdValue={tokenId} />
