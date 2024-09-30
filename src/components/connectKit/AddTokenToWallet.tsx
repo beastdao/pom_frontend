@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import React, { useCallback } from 'react';
+
 import { currentContractAddresses } from '../wagmiHooks/contractsAddresses';
 
 declare global {
@@ -12,7 +12,7 @@ const AddTokenToWallet = ({ tokenIdValue }: { tokenIdValue: string }) => {
     const handleAddToken = useCallback(async () => {
         window.ethereum = window.ethereum || {};
 
-        const result = await window.ethereum?.request({
+        await window.ethereum?.request({
             method: 'wallet_watchAsset',
             params: {
                 type: 'ERC721',
