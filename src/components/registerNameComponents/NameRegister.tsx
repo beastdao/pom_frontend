@@ -250,7 +250,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
     const tos_url = 'https://drive.google.com/file/d/1nQ0Zrc218dltS4_VLLozjO6Scq_EofOB/view';
 
-    function handleConnectClick(event: any) {
+    function handleConnectClick(event: React.MouseEvent) {
         event.preventDefault();
     }
 
