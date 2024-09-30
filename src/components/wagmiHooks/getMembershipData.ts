@@ -7,7 +7,7 @@ type MembershipData = {
     memberSince: bigint;
 };
 
-export function useGetMembershipData(tokenId: any) {
+export function useGetMembershipData(tokenId: bigint) {
     const { data, refetch, isError, isLoading } = useReadContract({
         ...storageConfig,
         functionName: 'getMembershipData',
