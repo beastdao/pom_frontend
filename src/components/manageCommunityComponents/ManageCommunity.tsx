@@ -41,9 +41,12 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
 
     const {
         data: dataCommunitySearch,
-        refetch: refetchCommunitySearch,
-        isError: isErrorCommunitySearch,
-        isLoading: isLoadingCommunitySearch,
+        /* probably use in a future
+          Unused properties for now:
+          refetch: refetchCommunitySearch,
+          isError: isErrorCommunitySearch,
+          isLoading: isLoadingCommunitySearch,
+         */
     } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
 
     const {

@@ -25,7 +25,7 @@ export var defaultColorScheme = {
   stDrop2: "#dbf595"
 };
 */
-export var defaultColorScheme = {
+export const defaultColorScheme = {
     stBKG: '#000000',
     stTextBox: '#ffffff',
     stWitchFrameBKG: '#ac80f3',
