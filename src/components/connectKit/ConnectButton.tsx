@@ -47,9 +47,9 @@ export const ConnectButton = () => {
         functionArgs: address
             ? [address.toString(), 'eth']
             : ['0x0000000000000000000000000000000000000000', 'eth'],
-    });
+    }) as { data: bigint | undefined };
 
-    const { membershipData: membershipData } = useGetMembershipData(tokenId);
+    const { membershipData } = useGetMembershipData(tokenId ?? BigInt(0)); // Use BigInt(0) if tokenId is undefined
 
     const pomEthName =
         membershipData && membershipData.name.length > 0 && membershipData.community.length > 0
