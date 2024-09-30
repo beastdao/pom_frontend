@@ -1,9 +1,7 @@
 import React from 'react';
 import CommunitiesSearchBasic from '../basicCommunitySearchComponent/CommunitiesSearchBasic';
 
-interface CommunitySearchProps {}
-
-const CommunitySearch: React.FC<CommunitySearchProps> = () => {
+const CommunitySearch: React.FC = () => {
     return (
         <CommunitiesSearchBasic
             comparisonData="0x0000000000000000000000000000000000000000"
