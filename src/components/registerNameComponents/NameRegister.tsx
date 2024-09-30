@@ -80,15 +80,18 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
     const formattedDate = getCurrentMonthAndYear();
 
-    const { data, refetch, isError, isLoading } = NamesRegistryReadHook({
+    const { data, refetch } = NamesRegistryReadHook({
         functionName: 'availableName',
         functionArgs: [nameValue, communityValue],
     });
 
     const {
         data: dataNameInCommunityByAddress,
+        /* probably use in a future
+        Unused properties for now:
         isError: isErrorNameInCommunityByAddress,
         isLoading: isLoadingNameInCommunityByAddress,
+        */
     } = NamesRegistryReadHook(
         address
             ? {
@@ -100,7 +103,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
     const {
         data: dataIsAdmin,
-        refetch: refetchIsAdmin,
+        //refetch: refetchIsAdmin,  // probably use in a future
         isError: isErrorIsAdmin,
         isLoading: isLoadingIsAdmin,
     } = NamesRegistryReadHook({
@@ -138,7 +141,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     const memberRole = checkIfAdmin(adminAddress, address?.toString());
     const {
         data: dataSVG,
-        refetch: refetchSVG,
+        //refetch: refetchSVG,  // probably use in a future
         isError: isErrorSVG,
         isLoading: isLoadingSVG,
     } = RenderSVG(nameAtCommunity, formattedDate, memberRole, communityValue, CS);

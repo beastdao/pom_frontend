@@ -116,7 +116,7 @@ function ModifyColorScheme({
     const formattedDate = getCurrentMonthAndYear();
     const {
         data: dataSVG,
-        refetch: refetchSVG,
+        //refetch: refetchSVG,   probably use in a future
         isError: isErrorSVG,
         isLoading: isLoadingSVG,
     } = RenderSVG('name', formattedDate, 'Admin', searchValue, CS);

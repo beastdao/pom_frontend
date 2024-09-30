@@ -42,8 +42,8 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     const {
         data: dataCommunityRegister,
         refetch: refetchCommunityRegister,
-        isError: isErrorCommunityRegister,
         isLoading: isLoadingCommunityRegister,
+        //isError: isErrorCommunityRegister,  // probably use in a future
     } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
 
     const {

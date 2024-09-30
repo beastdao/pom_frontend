@@ -12,7 +12,7 @@ function decodeString(stringValue: string): string {
 const ProfileComponent: React.FC<{ nameAtCommunity: string }> = ({ nameAtCommunity }) => {
     const {
         data: profileJsonData,
-        refetch: profileJsonRefetch, //probably remove
+        // refetch: profileJsonRefetch, // probably use in a future
         isError: profileJsonIsError,
         isLoading: profileJsonIsLoading,
         error: profileJsonError,

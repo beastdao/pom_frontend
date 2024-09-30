@@ -70,8 +70,11 @@ function NameSearch() {
 
     const {
         data: dataNameInCommunityByAddress,
+        /* probably use in a future
+        Unused properties for now:
         isError: isErrorNameInCommunityByAddress,
         isLoading: isLoadingNameInCommunityByAddress,
+        */
     } = NamesRegistryReadHook({
         functionName: 'getNameInCommunityByAddress',
         functionArgs: address
