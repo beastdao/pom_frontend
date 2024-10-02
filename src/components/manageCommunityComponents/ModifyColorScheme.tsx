@@ -119,7 +119,7 @@ function ModifyColorScheme({
         //refetch: refetchSVG,   probably use in a future
         isError: isErrorSVG,
         isLoading: isLoadingSVG,
-    } = RenderSVG('name', formattedDate, 'Admin', searchValue, CS);
+    } = RenderSVG(['name', formattedDate, 'Admin', searchValue, CS]);
 
     useEffect(() => {
         if (dataSVG !== undefined && dataSVG !== null && dataSVG.toString() !== imgData) {

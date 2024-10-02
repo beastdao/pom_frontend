@@ -11,7 +11,7 @@ export const namesRegistryConfig: {
 
 export const svgRendererConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof svgRendererAbi;
 } = {
     address: currentContractAddresses.svgRenderer,
     abi: svgRendererAbi,

@@ -555,7 +555,7 @@ export const svgRendererAbi = [
         type: 'function',
         constant: true,
     },
-];
+] as const;
 
 export const pomAbi = [
     {

@@ -1,17 +1,14 @@
 import { useReadContract } from 'wagmi';
 import { svgRendererConfig } from './contracts';
+import { AbiParametersToPrimitiveTypes, ExtractAbiFunction } from 'abitype';
 
-export type ColorScheme = {
-    stBKG: string;
-    stTextBox: string;
-    stWitchFrameBKG: string;
-    stWitchSLT: string;
-    stWitchFace: string;
-    stCardTitle: string;
-    stTextCLR: string;
-    stDrop1: string;
-    stDrop2: string;
-};
+type fnArgs = AbiParametersToPrimitiveTypes<
+    ExtractAbiFunction<typeof svgRendererConfig.abi, 'RenderSVGDummy'>['inputs'],
+    'inputs'
+>;
+
+export type ColorScheme = fnArgs[4];
+
 /*
 export var defaultColorScheme = {
   stBKG: "#dbf595",
@@ -25,6 +22,7 @@ export var defaultColorScheme = {
   stDrop2: "#dbf595"
 };
 */
+
 export const defaultColorScheme = {
     stBKG: '#000000',
     stTextBox: '#ffffff',
@@ -37,19 +35,11 @@ export const defaultColorScheme = {
     stDrop2: '#61bbdd',
 };
 
-export function RenderSVG(
-    nameAtCommunity: string,
-    memberSince: string,
-    role: string,
-    communityName: string,
-    colorScheme?: ColorScheme
-) {
-    const finalColorScheme = colorScheme ?? defaultColorScheme;
-
+export function RenderSVG(input: fnArgs) {
     const { data, refetch, isError, isLoading } = useReadContract({
         ...svgRendererConfig,
         functionName: 'RenderSVGDummy',
-        args: [nameAtCommunity, memberSince, role, communityName, finalColorScheme],
+        args: [...input],
         //watch: true,
     });
 
