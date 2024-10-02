@@ -6,7 +6,7 @@ export function GetTokenJsonData(nameAtCommunity: string) {
     const [nameValue, communityValue] = nameAtCommunity.split('@');
     const buffer = Buffer.from(nameValue + communityValue, 'utf8');
     const hashValue = keccak256(new Uint8Array(buffer));
-    const tokenId_ = ethers.getBigInt(hashValue).toString();
+    const tokenId_ = ethers.getBigInt(hashValue);
 
     const { data, refetch, isError, isLoading, error } = useReadContract({
         ...pomTokenConfig,

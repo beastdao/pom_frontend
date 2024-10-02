@@ -578,7 +578,7 @@ export const pomAbi = [
         type: 'function',
         constant: true,
     },
-];
+] as const;
 
 export const cardIndexAbi = [
     {

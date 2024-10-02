@@ -18,16 +18,7 @@ const ProfileComponent: React.FC<{ nameAtCommunity: string }> = ({ nameAtCommuni
         error: profileJsonError,
     } = GetTokenJsonData(nameAtCommunity);
 
-    let decodedProfileJsonData: string = ''; // Initialize as an empty string
-
-    if (!profileJsonIsLoading && !profileJsonIsError && profileJsonData) {
-        if (typeof profileJsonData === 'string') {
-            // Ensure that profileJsonData is a string before decoding
-            decodedProfileJsonData = decodeString(profileJsonData);
-        } else {
-            console.error('Error decoding profile JSON data. Data is not a string.');
-        }
-    }
+    const decodedProfileJsonData: string = profileJsonData ? decodeString(profileJsonData) : '';
 
     const parts = nameAtCommunity.split('@');
     const communityValue = parts[parts.length - 1];

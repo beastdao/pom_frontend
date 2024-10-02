@@ -19,7 +19,7 @@ export const svgRendererConfig: {
 
 export const pomTokenConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof pomAbi;
 } = {
     address: currentContractAddresses.pomToken,
     abi: pomAbi,
