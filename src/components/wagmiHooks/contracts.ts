@@ -27,7 +27,7 @@ export const pomTokenConfig: {
 
 export const storageConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof cardIndexAbi;
 } = {
     address: currentContractAddresses.storage,
     abi: cardIndexAbi,

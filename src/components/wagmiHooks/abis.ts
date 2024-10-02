@@ -617,4 +617,4 @@ export const cardIndexAbi = [
         stateMutability: 'view',
         type: 'function',
     },
-];
+] as const;
