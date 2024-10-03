@@ -45,7 +45,7 @@ export const ConnectButton = () => {
     const { data: tokenId } = NamesRegistryReadHook({
         functionName: 'getNameInCommunityByAddress',
         functionArgs: address
-            ? [address.toString(), 'eth']
+            ? [address.toString() as `0x${string}`, 'eth']
             : ['0x0000000000000000000000000000000000000000', 'eth'],
     }) as { data: bigint | undefined };
 

@@ -425,7 +425,7 @@ export const namesRegistryAbi = [
         stateMutability: 'nonpayable',
         type: 'function',
     },
-];
+] as const;
 
 export const svgRendererAbi = [
     {

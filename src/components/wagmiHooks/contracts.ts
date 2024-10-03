@@ -3,7 +3,7 @@ import { namesRegistryAbi, svgRendererAbi, pomAbi, cardIndexAbi } from './abis';
 
 export const namesRegistryConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof namesRegistryAbi;
 } = {
     address: currentContractAddresses.namesRegistry,
     abi: namesRegistryAbi,

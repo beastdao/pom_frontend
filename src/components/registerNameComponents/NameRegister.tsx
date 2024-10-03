@@ -92,14 +92,12 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         isError: isErrorNameInCommunityByAddress,
         isLoading: isLoadingNameInCommunityByAddress,
         */
-    } = NamesRegistryReadHook(
-        address
-            ? {
-                  functionName: 'getNameInCommunityByAddress',
-                  functionArgs: [address, communityValue],
-              }
-            : { functionName: '', functionArgs: [] }
-    );
+    } = address
+        ? NamesRegistryReadHook({
+              functionName: 'getNameInCommunityByAddress',
+              functionArgs: [address, communityValue],
+          })
+        : { data: undefined };
 
     const {
         data: dataIsAdmin,
