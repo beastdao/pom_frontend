@@ -16,7 +16,7 @@ function ModifyCommunityAdmin({
     currentAdminAddress: string | undefined;
     buttonsStatus: string;
 }) {
-    const [newAdminAddress, setNewAdminAddress] = useState('');
+    const [newAdminAddress, setNewAdminAddress] = useState<`0x${string}`>(NULLADDR);
     const [showModal, setShowModal] = useState(false);
     const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [errorCount, setErrorCount] = useState<number>(0);
@@ -54,7 +54,10 @@ function ModifyCommunityAdmin({
     }, [isTxErrorModifyAdmin, isPendingModifyAdmin, isSuccessModifyAdmin]);
 
     const handleAdminAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNewAdminAddress(event.target.value);
+        const val = event.target.value.trim();
+        if (/^0x[a-fA-F0-9]{40}$/.test(val)) {
+            setNewAdminAddress(val as `0x${string}`);
+        }
     };
 
     const isAddressValid = () => {
