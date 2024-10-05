@@ -75,13 +75,14 @@ function NameSearch() {
         isError: isErrorNameInCommunityByAddress,
         isLoading: isLoadingNameInCommunityByAddress,
         */
-    } = address
-        ? NamesRegistryReadHook({
-              functionName: 'getNameInCommunityByAddress',
-              functionArgs: [address, communityValue],
-          })
-        : { data: undefined };
-
+    } = NamesRegistryReadHook(
+        address
+            ? {
+                  functionName: 'getNameInCommunityByAddress',
+                  functionArgs: [address, communityValue],
+              }
+            : { functionName: 'getNameInCommunityByAddress', functionArgs: undefined }
+    );
     useEffect(() => {
         if (dataNameInCommunityByAddress !== undefined && address !== undefined) {
             if (dataNameInCommunityByAddress.toString() === '0') {
