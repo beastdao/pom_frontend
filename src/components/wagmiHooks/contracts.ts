@@ -3,7 +3,7 @@ import { namesRegistryAbi, svgRendererAbi, pomAbi, cardIndexAbi } from './abis';
 
 export const namesRegistryConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof namesRegistryAbi;
 } = {
     address: currentContractAddresses.namesRegistry,
     abi: namesRegistryAbi,
@@ -11,7 +11,7 @@ export const namesRegistryConfig: {
 
 export const svgRendererConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof svgRendererAbi;
 } = {
     address: currentContractAddresses.svgRenderer,
     abi: svgRendererAbi,
@@ -19,7 +19,7 @@ export const svgRendererConfig: {
 
 export const pomTokenConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof pomAbi;
 } = {
     address: currentContractAddresses.pomToken,
     abi: pomAbi,
@@ -27,7 +27,7 @@ export const pomTokenConfig: {
 
 export const storageConfig: {
     address: `0x${string}`;
-    abi: Array<any>;
+    abi: typeof cardIndexAbi;
 } = {
     address: currentContractAddresses.storage,
     abi: cardIndexAbi,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { RenderSVG, ColorScheme } from '../wagmiHooks/RenderSVG';
+import { RenderSVG, ColorScheme, defaultColorScheme } from '../wagmiHooks/RenderSVG';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { NamesRegistryWriteHook } from '../wagmiHooks/NamesRegistryWriteHook';
 import { useNavigate } from 'react-router-dom';
@@ -72,7 +72,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
     const { address } = useAccount();
     const [errorCount, setErrorCount] = useState<number>(0);
     const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
-    const [CS, setCS] = useState<ColorScheme | undefined>(undefined);
+    const [CS, setCS] = useState<ColorScheme>(defaultColorScheme);
 
     const [nameValue, communityValue] = nameAtCommunity.split('@');
 
@@ -98,9 +98,8 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
                   functionName: 'getNameInCommunityByAddress',
                   functionArgs: [address, communityValue],
               }
-            : { functionName: '', functionArgs: [] }
+            : { functionName: 'getNameInCommunityByAddress', functionArgs: undefined }
     );
-
     const {
         data: dataIsAdmin,
         //refetch: refetchIsAdmin,  // probably use in a future
@@ -110,31 +109,14 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         functionName: 'getCommunityAdmin',
         functionArgs: [communityValue],
     });
-
-    const defaultColorScheme = {
-        stBKG: '#000',
-        stTextBox: '#fff',
-        stWitchFrameBKG: '#ac80f3',
-        stWitchSLT: '#000',
-        stWitchFace: '#fff',
-        stCardTitle: '#fff',
-        stTextCLR: '#000',
-        stDrop1: '#ac80f3',
-        stDrop2: '#61bbdd',
-    };
-
-    const { data: fetchedDataCS = defaultColorScheme } = communityValue
-        ? NamesRegistryReadHook({
-              functionName: 'getCommunityColorScheme',
-              functionArgs: [communityValue],
-          })
-        : {};
+    const { data: fetchedDataCS } = NamesRegistryReadHook({
+        functionName: 'getCommunityColorScheme',
+        functionArgs: [communityValue],
+    }) as { data: ColorScheme | undefined };
 
     useEffect(() => {
         if (fetchedDataCS) {
-            setCS(fetchedDataCS as unknown as ColorScheme);
-        } else {
-            setCS(defaultColorScheme);
+            setCS(fetchedDataCS as ColorScheme);
         }
     }, [fetchedDataCS]);
 
@@ -144,7 +126,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         //refetch: refetchSVG,  // probably use in a future
         isError: isErrorSVG,
         isLoading: isLoadingSVG,
-    } = RenderSVG(nameAtCommunity, formattedDate, memberRole, communityValue, CS);
+    } = RenderSVG([nameAtCommunity, formattedDate, memberRole, communityValue, CS]);
 
     const {
         write: writeRegName,

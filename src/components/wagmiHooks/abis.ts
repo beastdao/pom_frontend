@@ -425,7 +425,7 @@ export const namesRegistryAbi = [
         stateMutability: 'nonpayable',
         type: 'function',
     },
-];
+] as const;
 
 export const svgRendererAbi = [
     {
@@ -555,7 +555,7 @@ export const svgRendererAbi = [
         type: 'function',
         constant: true,
     },
-];
+] as const;
 
 export const pomAbi = [
     {
@@ -578,7 +578,7 @@ export const pomAbi = [
         type: 'function',
         constant: true,
     },
-];
+] as const;
 
 export const cardIndexAbi = [
     {
@@ -617,4 +617,4 @@ export const cardIndexAbi = [
         stateMutability: 'view',
         type: 'function',
     },
-];
+] as const;

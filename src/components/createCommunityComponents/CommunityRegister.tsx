@@ -33,7 +33,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     const [inputValidity, setInputValidity] = useState<string | null>(null);
     const [buttonStatus, setButtonStatus] = useState<string>('disabled');
     const [isChecked, setIsChecked] = useState(false);
-    const [adminAddress, setAdminAddress] = useState('');
+    const [adminAddress, setAdminAddress] = useState<`0x${string}`>(NULLADDR);
     const [showModal, setShowModal] = useState(false);
     const [isButtonClicked, setIsButtonClicked] = useState(false); // New state variable
     const [errorCount, setErrorCount] = useState<number>(0);
@@ -101,7 +101,10 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     };
 
     const handleAdminAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAdminAddress(event.target.value);
+        const val = event.target.value.trim();
+        if (/^0x[a-fA-F0-9]{40}$/.test(val)) {
+            setAdminAddress(val as `0x${string}`);
+        }
     };
 
     const isAddressValid = () => {

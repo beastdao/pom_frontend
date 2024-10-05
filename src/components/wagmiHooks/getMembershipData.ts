@@ -1,11 +1,16 @@
 import { useReadContract } from 'wagmi';
 import { storageConfig } from './contracts';
+import {
+    AbiParametersToPrimitiveTypes,
+    ExtractAbiFunction,
+    ExtractAbiFunctionNames,
+} from 'abitype';
 
-type MembershipData = {
-    name: string;
-    community: string;
-    memberSince: bigint;
-};
+type fnNames = ExtractAbiFunctionNames<typeof storageConfig.abi, 'view' | 'pure'>;
+type fnReturns = AbiParametersToPrimitiveTypes<
+    ExtractAbiFunction<typeof storageConfig.abi, fnNames>['outputs'],
+    'outputs'
+>['0'];
 
 export function useGetMembershipData(tokenId: bigint) {
     const { data, refetch, isError, isLoading } = useReadContract({
@@ -15,14 +20,7 @@ export function useGetMembershipData(tokenId: bigint) {
         // watch: true,
     });
 
-    const membershipData: MembershipData | null =
-        data && typeof data === 'object' && !Array.isArray(data)
-            ? {
-                  name: (data as MembershipData).name,
-                  community: (data as MembershipData).community,
-                  memberSince: BigInt((data as MembershipData).memberSince),
-              }
-            : null;
+    const membershipData: fnReturns | null = data ?? null;
 
     return {
         membershipData,

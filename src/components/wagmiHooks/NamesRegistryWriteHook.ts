@@ -1,13 +1,28 @@
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { namesRegistryConfig } from './contracts';
+import {
+    AbiParametersToPrimitiveTypes,
+    ExtractAbiFunction,
+    ExtractAbiFunctionNames,
+} from 'abitype';
 
-interface NamesRegistryWriteHookInterface {
-    functionName: string;
-    functionArgs: (string | string[])[];
+type fnNames = ExtractAbiFunctionNames<typeof namesRegistryConfig.abi, 'nonpayable'>;
+
+type fnArgsMap = {
+    [K in fnNames]: AbiParametersToPrimitiveTypes<
+        ExtractAbiFunction<typeof namesRegistryConfig.abi, K>['inputs'],
+        'inputs'
+    >;
+};
+type NamesRegistryWriteHookInterface<T extends keyof fnArgsMap> = {
+    functionName: T;
+    functionArgs: fnArgsMap[T] | undefined;
     txValue: bigint;
-}
+};
 
-export function NamesRegistryWriteHook(fn: NamesRegistryWriteHookInterface) {
+export function NamesRegistryWriteHook<T extends keyof fnArgsMap>(
+    fn: NamesRegistryWriteHookInterface<T>
+) {
     const {
         writeContract,
         data,
@@ -18,8 +33,8 @@ export function NamesRegistryWriteHook(fn: NamesRegistryWriteHookInterface) {
     const write = () =>
         writeContract({
             ...namesRegistryConfig,
-            functionName: fn.functionName,
-            args: fn.functionArgs,
+            functionName: fn.functionName as fnNames,
+            args: Object(fn.functionArgs),
             value: fn.txValue,
         });
 

@@ -44,7 +44,6 @@ function ModifyColorScheme({
     const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [errorCount, setErrorCount] = useState<number>(0);
     const navigate = useNavigate();
-    const colorSchemeArray = Object.values(CS);
 
     type ColorSchemeKeys =
         | 'stBKG'
@@ -82,7 +81,7 @@ function ModifyColorScheme({
         txRefetch: txRefetchModifyCS,
     } = NamesRegistryWriteHook({
         functionName: 'modifyColorSchemeForCommunity',
-        functionArgs: [searchValue, [...colorSchemeArray]],
+        functionArgs: [searchValue, CS],
         txValue: BigInt('0'),
     });
 
@@ -119,7 +118,7 @@ function ModifyColorScheme({
         //refetch: refetchSVG,   probably use in a future
         isError: isErrorSVG,
         isLoading: isLoadingSVG,
-    } = RenderSVG('name', formattedDate, 'Admin', searchValue, CS);
+    } = RenderSVG(['name', formattedDate, 'Admin', searchValue, CS]);
 
     useEffect(() => {
         if (dataSVG !== undefined && dataSVG !== null && dataSVG.toString() !== imgData) {
