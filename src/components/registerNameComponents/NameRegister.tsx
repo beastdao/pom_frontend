@@ -98,7 +98,10 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
                   functionName: 'getNameInCommunityByAddress',
                   functionArgs: [address, communityValue],
               }
-            : { functionName: 'getNameInCommunityByAddress', functionArgs: undefined }
+            : {
+                  functionName: 'getNameInCommunityByAddress',
+                  functionArgs: undefined,
+              }
     );
     const {
         data: dataIsAdmin,

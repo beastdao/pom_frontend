@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import NameRegister from '../components/registerNameComponents/NameRegister';
 
 const RegisterNameFinal: React.FunctionComponent = () => {
-    const { nameAtCommunity } = useParams<{ nameAtCommunity: string | undefined }>();
+    const { nameAtCommunity } = useParams<{
+        nameAtCommunity: string | undefined;
+    }>();
     return (
         <div className="home-content">
             <h1>Finalise your chosen name registration</h1>

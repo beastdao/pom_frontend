@@ -81,7 +81,10 @@ function NameSearch() {
                   functionName: 'getNameInCommunityByAddress',
                   functionArgs: [address, communityValue],
               }
-            : { functionName: 'getNameInCommunityByAddress', functionArgs: undefined }
+            : {
+                  functionName: 'getNameInCommunityByAddress',
+                  functionArgs: undefined,
+              }
     );
     useEffect(() => {
         if (dataNameInCommunityByAddress !== undefined && address !== undefined) {

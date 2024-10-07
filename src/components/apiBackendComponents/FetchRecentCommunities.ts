@@ -9,7 +9,7 @@ export interface Community {
 }
 
 export async function FetchRecentCommunities(): Promise<Community[] | null> {
-    const callUrl = `${process.env.REACT_APP_BACKEND_URL}/${currentNetwork}/communities/`;
+    const callUrl = `${import.meta.env.VITE_APP_BACKEND_URL}/${currentNetwork}/communities/`;
     try {
         const response = await axios(callUrl);
         if (response.status === 200) {

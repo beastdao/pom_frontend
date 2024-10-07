@@ -44,7 +44,10 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
         refetch: refetchCommunityRegister,
         isLoading: isLoadingCommunityRegister,
         //isError: isErrorCommunityRegister,  // probably use in a future
-    } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
+    } = NamesRegistryReadHook({
+        functionName: 'getCommunityAdmin',
+        functionArgs: [searchValue],
+    });
 
     const {
         write,
