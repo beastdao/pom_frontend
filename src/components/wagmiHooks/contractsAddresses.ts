@@ -21,8 +21,8 @@ export const contractAddresses: {
 };
 
 export const currentNetwork =
-    process.env.REACT_APP_ENV === 'mainnet' || process.env.REACT_APP_ENV === 'sepolia'
-        ? process.env.REACT_APP_ENV
+    import.meta.env.VITE_APP_ENV === 'mainnet' || import.meta.env.VITE_APP_ENV === 'sepolia'
+        ? import.meta.env.VITE_APP_ENV
         : 'sepolia';
 export const currentContractAddresses =
     contractAddresses[currentNetwork as keyof typeof contractAddresses];

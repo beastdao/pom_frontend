@@ -47,7 +47,10 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
           isError: isErrorCommunitySearch,
           isLoading: isLoadingCommunitySearch,
          */
-    } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
+    } = NamesRegistryReadHook({
+        functionName: 'getCommunityAdmin',
+        functionArgs: [searchValue],
+    });
 
     const {
         data: dataMembershipsCount,
@@ -64,14 +67,20 @@ function ManageCommunity({ searchValue }: { searchValue: string }) {
         refetch: refetchIsSuspendedByAdmin,
         isError: isErrorIsSuspendedByAdmin,
         isLoading: isLoadingIsSuspendedByAdmin,
-    } = NamesRegistryReadHook({ functionName: 'isSuspendedByAdmin', functionArgs: [searchValue] });
+    } = NamesRegistryReadHook({
+        functionName: 'isSuspendedByAdmin',
+        functionArgs: [searchValue],
+    });
 
     const {
         data: dataIsCommunityVerified,
         refetch: refetchIsCommunityVerified,
         isError: isErrorIsCommunityVerified,
         isLoading: isLoadingIsCommunityVerified,
-    } = NamesRegistryReadHook({ functionName: 'isCommunityVerified', functionArgs: [searchValue] });
+    } = NamesRegistryReadHook({
+        functionName: 'isCommunityVerified',
+        functionArgs: [searchValue],
+    });
 
     useEffect(() => {
         if (

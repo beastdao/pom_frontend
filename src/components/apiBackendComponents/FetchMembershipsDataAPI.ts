@@ -20,7 +20,7 @@ export async function FetchMembershipsDataAPI(
         console.log('Connect Wallet');
         return null;
     }
-    const callUrl = `${process.env.REACT_APP_BACKEND_URL}/${currentNetwork}/memberships/${userAddress}`;
+    const callUrl = `${import.meta.env.VITE_APP_BACKEND_URL}/${currentNetwork}/memberships/${userAddress}`;
     try {
         const response = await axios(callUrl);
 

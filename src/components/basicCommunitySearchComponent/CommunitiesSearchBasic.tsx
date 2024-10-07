@@ -58,7 +58,10 @@ const CommunitiesSearchBasic: React.FC<CommunitiesSearchBasicProps> = ({
         refetch: refetchCommunitySearch,
         isError: isErrorCommunitySearch,
         isLoading: isLoadingCommunitySearch,
-    } = NamesRegistryReadHook({ functionName: 'getCommunityAdmin', functionArgs: [searchValue] });
+    } = NamesRegistryReadHook({
+        functionName: 'getCommunityAdmin',
+        functionArgs: [searchValue],
+    });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
