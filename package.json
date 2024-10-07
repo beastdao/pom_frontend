@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "bunx --bun vite",
         "build": "vite build",
-        "start": "vite preview",
+        "start": "serve -s build",
         "lint": "eslint '**/*.{ts,tsx}'",
         "fmt": "prettier --ignore-path .gitignore --write \"**/*.+(ts|json|tsx)\"",
         "heroku-postbuild": "bun run build"
