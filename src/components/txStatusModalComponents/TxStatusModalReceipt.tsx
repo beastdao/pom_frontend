@@ -12,7 +12,7 @@ const TxStatusModalReceipt: React.FC<TxStatusModalReceiptProps> = ({
     receipt,
     ...props
 }) => {
-    const network = process.env.REACT_APP_ENV;
+    const network = import.meta.env.VITE_APP_ENV;
     const etherscanBaseUrl =
         network === 'mainnet'
             ? 'https://etherscan.io'
