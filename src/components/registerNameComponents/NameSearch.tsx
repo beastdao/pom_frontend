@@ -3,45 +3,16 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { NamesRegistryReadHook } from '../wagmiHooks/NamesRegistryReadHook';
 import { Community, FetchRecentCommunities } from '../apiBackendComponents/FetchRecentCommunities';
-import { getValidationConditions } from '../utils/inputValidationConditions';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
 import Toast from 'react-bootstrap/Toast';
-
-//no function isCommunityAvailable that returns bool
-function checkCommunity(textData: string) {
-    const feedback =
-        textData === '0x0000000000000000000000000000000000000000'
-            ? 'Community is not registered. "Create community" ->'
-            : 'Community exists';
-    const validity =
-        textData === '0x0000000000000000000000000000000000000000' ? 'isInvalid' : 'isValid';
-    return [feedback, validity];
-}
-
-function checkName(textData: boolean, membershipData: boolean) {
-    console.log(membershipData);
-    const feedback =
-        textData === false
-            ? 'Name is not available for registration in this community'
-            : membershipData === true
-              ? 'You already have a name in this community!'
-              : 'Name is available for registration in this community';
-    const validity = membershipData === true ? 'isInvalid' : textData ? 'isValid' : 'isInvalid';
-    const buttonStatus = textData ? '' : 'disabled';
-    console.log(feedback);
-    return [feedback, validity, buttonStatus];
-}
+import useInputValidation from '../utils/inputValidationHook';
 
 function NameSearch() {
     const [nameValue, setNameValue] = useState<string>('');
     const [communityValue, setCommunityValue] = useState<string>('');
-    const [nameFeedbackText, setNameFeedbackText] = useState<string>('');
-    const [communityFeedbackText, setCommunityFeedbackText] = useState<string>('');
-    const [nameValidity, setNameValidity] = useState<string | null>(null);
-    const [communityValidity, setCommunityValidity] = useState<string | null>(null);
     const [buttonStatus, setButtonStatus] = useState<string>('disabled');
     const [recentCommunities, setRecentCommunities] = useState<Community[] | null>(null); //rewrite type
     const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
@@ -104,57 +75,36 @@ function NameSearch() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        setCommunityFeedbackText('');
-        setCommunityValidity(null);
+    const {
+        feedbackText: communityFeedbackText,
+        validity: communityValidity,
+        shouldEnableButton: shouldEnableButtonCommunity,
+    } = useInputValidation(communityValue, 'community', 3, 10, isLoadingCommunity, dataCommunity);
 
-        const communityValidationConditions = getValidationConditions(communityValue, 3, 10);
-        let matchingConditionCommunity = null;
-
-        if (communityValidationConditions !== null) {
-            matchingConditionCommunity = communityValidationConditions.find(
-                (condition) => condition.condition
-            );
-        }
-
-        if (matchingConditionCommunity) {
-            setCommunityFeedbackText(matchingConditionCommunity.feedbackText);
-            setCommunityValidity(matchingConditionCommunity.inputValidity);
-            setButtonStatus(matchingConditionCommunity.buttonStatus);
-        } else if (dataCommunity !== undefined) {
-            const [status, validity] = checkCommunity(dataCommunity.toString());
-            setCommunityFeedbackText(status);
-            setCommunityValidity(validity);
-        }
-    }, [communityValue, isLoadingCommunity]);
+    const {
+        feedbackText: nameFeedbackText,
+        validity: nameValidity,
+        shouldEnableButton: shouldEnableButtonName,
+    } = useInputValidation(
+        nameValue,
+        'name',
+        3,
+        15,
+        isLoadingName,
+        dataName,
+        alreadyHasName,
+        communityValidity
+    );
 
     useEffect(() => {
-        setNameFeedbackText('');
-        setNameValidity(null);
+        const shouldEnableButton =
+            shouldEnableButtonCommunity &&
+            shouldEnableButtonName &&
+            !isLoadingCommunity &&
+            !isLoadingName;
 
-        const nameValidationConditions = getValidationConditions(nameValue, 3, 15);
-        let matchingConditionName = null;
-
-        if (nameValidationConditions !== null) {
-            matchingConditionName = nameValidationConditions.find(
-                (condition) => condition.condition
-            );
-        }
-
-        if (matchingConditionName) {
-            setNameFeedbackText(matchingConditionName.feedbackText);
-            setNameValidity(matchingConditionName.inputValidity);
-            setButtonStatus(matchingConditionName.buttonStatus);
-        } else if (dataName !== undefined && communityValidity === 'isValid') {
-            const [status, validity, buttonStatus] = checkName(
-                Boolean(dataName),
-                Boolean(alreadyHasName)
-            );
-            setNameFeedbackText(status);
-            setNameValidity(validity);
-            setButtonStatus(buttonStatus);
-        }
-    }, [nameValue, communityValue, communityValidity, isLoadingName, alreadyHasName]);
+        setButtonStatus(shouldEnableButton ? 'enabled' : 'disabled');
+    }, [shouldEnableButtonCommunity, shouldEnableButtonName, isLoadingCommunity, isLoadingName]);
 
     const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputNameValue = event.target.value;
