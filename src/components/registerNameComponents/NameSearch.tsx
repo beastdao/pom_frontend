@@ -97,11 +97,7 @@ function NameSearch() {
     );
 
     useEffect(() => {
-        const shouldEnableButton =
-            shouldEnableButtonCommunity &&
-            shouldEnableButtonName &&
-            !isLoadingCommunity &&
-            !isLoadingName;
+        const shouldEnableButton = shouldEnableButtonName && !isLoadingCommunity && !isLoadingName;
 
         setButtonStatus(shouldEnableButton ? 'enabled' : 'disabled');
     }, [shouldEnableButtonCommunity, shouldEnableButtonName, isLoadingCommunity, isLoadingName]);
