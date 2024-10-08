@@ -11,26 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import { calculateTokenId } from '../utils/calculateTokenId';
 import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
 import { ConnectButton } from '../connectKit/ConnectButton';
-
-function checkName(textData: boolean, membershipData: boolean) {
-    let feedback;
-    let validity;
-    let buttonStatus;
-    if (textData === false) {
-        feedback = 'Name is not available for registration in this community';
-        validity = 'isInvalid';
-        buttonStatus = 'disabled';
-    } else if (membershipData === true) {
-        feedback = 'You already has name in this community!';
-        validity = 'isInvalid';
-        buttonStatus = 'disabled';
-    } else {
-        feedback = 'Name is available for registration in this community';
-        validity = 'isValid';
-        buttonStatus = '';
-    }
-    return [feedback, validity, buttonStatus];
-}
+import { checkName } from '../utils/inputCheck';
 
 function getCurrentMonthAndYear() {
     const months = [
