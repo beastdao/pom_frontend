@@ -10,7 +10,7 @@ const MyCommunitiesSearch: React.FC = () => {
             comparisonData={address}
             feedBackTextValid="You are Admin"
             feedbackTextInvalid="You are not admin"
-            routePath="ManageCommunityFinal"
+            routePath="c"
         />
     );
 };
