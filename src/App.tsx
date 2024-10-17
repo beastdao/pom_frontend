@@ -20,8 +20,15 @@ import MyCustomAvatar from './components/connectKit/MyCustomAvatar';
 import CommunityBase from './pages/CommunityBase';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+type PageKey =
+    | '🗂️ COMMUNITY BASE'
+    | 'MY MEMBERSHIPS'
+    | '🌈 CREATE COMMUNITY'
+    | 'MY COMMUNITIES'
+    | 'ABOUT';
+
 const App: React.FunctionComponent = () => {
-    const pages: string[] = [
+    const pages: PageKey[] = [
         '🗂️ COMMUNITY BASE',
         'MY MEMBERSHIPS',
         '🌈 CREATE COMMUNITY',
@@ -63,7 +70,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/n/:nameAtCommunity"
+                                        path="/m/:nameAtCommunity"
                                         element={
                                             <PageContent>
                                                 {' '}
@@ -81,7 +88,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/MyMemberships"
+                                        path="/m/"
                                         element={
                                             <PageContent>
                                                 {' '}
@@ -99,7 +106,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/MyCommunities"
+                                        path="/c/"
                                         element={
                                             <PageContent>
                                                 {' '}
@@ -144,7 +151,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/ManageCommunityFinal/:searchValueCommunity"
+                                        path="/c/:searchValueCommunity"
                                         element={
                                             <PageContent>
                                                 {' '}
