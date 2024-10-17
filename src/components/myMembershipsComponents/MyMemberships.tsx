@@ -46,7 +46,7 @@ function MyMemberships() {
     };
 
     const handleShareButtonClick = (nameAtCommunity: string) => {
-        navigate(`/${nameAtCommunity}`);
+        navigate(`/n/${nameAtCommunity}`);
     };
 
     return (
