@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { useAccount } from 'wagmi';
 import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
+import { ConnectButton } from '../connectKit/ConnectButton';
 
 const NULLADDR = '0x0000000000000000000000000000000000000000';
 
@@ -152,7 +153,9 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     };
 
     const tos_url = 'https://drive.google.com/file/d/1nQ0Zrc218dltS4_VLLozjO6Scq_EofOB/view';
-
+    function handleConnectClick(event: React.MouseEvent) {
+        event.preventDefault();
+    }
     return (
         <div className="hcc2">
             <Form>
@@ -220,16 +223,29 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
                         onChange={handleCheckboxChange}
                     />
                 </Form.Group>
-
-                <Button
-                    variant="dark"
-                    type="button"
-                    disabled={buttonStatus === 'disabled'}
-                    onClick={handleRegisterClick} // Call the function when the "Register" button is clicked
-                >
-                    Register
-                </Button>
-
+                {address ? (
+                    <Button
+                        variant="dark"
+                        type="button"
+                        disabled={buttonStatus === 'disabled'}
+                        onClick={handleRegisterClick} // Call the function when the "Register" button is clicked
+                    >
+                        Register
+                    </Button>
+                ) : (
+                    <button
+                        type="button"
+                        onClick={handleConnectClick}
+                        style={{
+                            background: 'transparent',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer',
+                        }}
+                    >
+                        <ConnectButton />
+                    </button>
+                )}
                 {isButtonClicked && (
                     <TxStatusModalReceipt
                         show={showModal}
