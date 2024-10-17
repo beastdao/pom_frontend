@@ -54,7 +54,16 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/:nameAtCommunity"
+                                        path="/:defaultCommunity"
+                                        element={
+                                            <PageContent>
+                                                {' '}
+                                                <Home />{' '}
+                                            </PageContent>
+                                        }
+                                    />
+                                    <Route
+                                        path="/n/:nameAtCommunity"
                                         element={
                                             <PageContent>
                                                 {' '}

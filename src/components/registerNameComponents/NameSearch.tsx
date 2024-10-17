@@ -10,9 +10,9 @@ import { useAccount } from 'wagmi';
 import Toast from 'react-bootstrap/Toast';
 import useInputValidation from '../utils/inputValidationHook';
 
-function NameSearch() {
+function NameSearch({ defaultCommunity }: { defaultCommunity: string }) {
     const [nameValue, setNameValue] = useState<string>('');
-    const [communityValue, setCommunityValue] = useState<string>('');
+    const [communityValue, setCommunityValue] = useState<string>(defaultCommunity ?? '');
     const [buttonStatus, setButtonStatus] = useState<string>('disabled');
     const [recentCommunities, setRecentCommunities] = useState<Community[] | null>(null); //rewrite type
     const [alreadyHasName, setAlreadyHasName] = useState<boolean>(false);
