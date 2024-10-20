@@ -6,7 +6,7 @@ const CommunityBase: React.FunctionComponent = () => (
         <iframe
             className="airtable-embed"
             title="Community Base"
-            src="https://airtable.com/embed/appjzAoqqIA2879AS/shriY7V9iqKV49cnv?backgroundColor=purpleLight&viewControls=on"
+            src="https://airtable.com/embed/appazTH2pO4dEiz3q/shrlEjHVRXlXwIjRD?backgroundColor=purpleLight&viewControls=on"
         ></iframe>
         <p> Disclaimer Placeholder </p>
     </div>
