@@ -20,3 +20,8 @@ how to run:
 ### Contributors
 
 After making changes, you need to  run linter `bun run lint` and format the code with `bun run fmt`
+
+### Repo Activity
+---
+
+![Alt](https://repobeats.axiom.co/api/embed/f1730062d4806479d6f01af48786b7d566769924.svg "Repobeats analytics image")
