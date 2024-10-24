@@ -1,6 +1,7 @@
 import beastdao from './communities/beastdao.json';
 import eth from './communities/eth.json';
 import pom from './communities/pom.json';
+import devcon from './communities/devcon.json';
 // import your community file here : copy one above and change to your file name
 
 export type Community = {
@@ -19,4 +20,4 @@ export type Community = {
 };
 
 // List of imported community JSON files
-export const communities: Community[] = [beastdao, eth, pom]; //add your community name here
+export const communities: Community[] = [beastdao, eth, pom, devcon]; //add your community name here
