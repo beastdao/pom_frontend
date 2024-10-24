@@ -1,0 +1,12 @@
+{
+    "community_name": "Ethereum Community",
+    "pom_community_handle": "ethereum",
+    "description": "The Ethereum community is home to hundreds of thousands of developers, technologists, designers, users, HODLers and enthusiasts.",
+    "website": "https://ethereum.org/",
+    "main_social_platform": {
+        "platform_name": "Discord",
+        "invite_link": "https://discord.com/invite/ethereum-org"
+    },
+    "amount_of_members": "20000+",
+    "people_behind": "Ethereum Foundation Team"
+}
