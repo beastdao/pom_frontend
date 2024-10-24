@@ -1,0 +1,12 @@
+{
+    "community_name": "Devcon Community",
+    "pom_community_handle": "devcon",
+    "description": "A passionate community around Devcon - a non-profit event, organized by the Ethereum Foundation.",
+    "website": "https://devcon.org/en/",
+    "main_social_platform": {
+        "platform_name": "Discourse",
+        "invite_link": "https://forum.devcon.org/"
+    },
+    "amount_of_members": "100-500",
+    "people_behind": "Ethereum Foundation Team"
+}
