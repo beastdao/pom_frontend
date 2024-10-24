@@ -1,0 +1,12 @@
+{
+    "community_name": "Full Name of Your Community",
+    "pom_community_handle": "Community Handle in PoM",
+    "description": "One Line Community Description",
+    "website": "https://community.com | NO",
+    "main_social_platform": {
+        "platform_name": "Discord | Telegram | Zulip | Slack",
+        "invite_link": "Link To The Main Social Platform"
+    },
+    "amount_of_members": "0-100 | 100-500 | 501-1000 | 1001-5000 | 5001-20000 | 20000+",
+    "people_behind": "Team or Company Behind the Community"
+}
