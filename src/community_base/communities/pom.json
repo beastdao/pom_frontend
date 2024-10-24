@@ -1,0 +1,12 @@
+{
+    "community_name": "PoM Community",
+    "pom_community_handle": "pom",
+    "description": "An open collective of passionate contributors on a mission to build an authentication system for web3 communities and their members.",
+    "website": "https://app.pom.cards",
+    "main_social_platform": {
+        "platform_name": "Discord",
+        "invite_link": "https://discord.gg/McqF7vyCWx"
+    },
+    "amount_of_members": "0-100",
+    "people_behind": "BEAST DAO Team"
+}
