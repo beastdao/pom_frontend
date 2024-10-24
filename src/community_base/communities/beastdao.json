@@ -1,7 +1,7 @@
 {
     "community_name": "BEAST DAO",
     "pom_community_handle": "beast",
-    "description": "A cooperative DAO, where individuals from 5 various domains co-create, fund, and govern impactful projects.ETH Names initiative helps anyone to get a human-readable name like alice@eth instead of a bunch of symbols same as ENS name, but 100% free forever.",
+    "description": "A cooperative DAO, where individuals from 5 various domains co-create, fund, and govern impactful projects.",
     "website": "http://beastdao.org",
     "main_social_platform": {
         "platform_name": "Discord",
