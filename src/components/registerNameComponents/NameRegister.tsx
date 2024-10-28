@@ -12,7 +12,8 @@ import { calculateTokenId } from '../utils/calculateTokenId';
 import TxStatusModalWithTokenId from '../txStatusModalComponents/TxStatusModalWithTokenId';
 import { ConnectButton } from '../connectKit/ConnectButton';
 import { checkName } from '../utils/inputCheck';
-
+import { useEstimateGasFnCall } from '../wagmiHooks/estimateGasFnCall';
+import { fetchGasPrice, GasData } from '../utils/fetchGasPrice';
 function getCurrentMonthAndYear() {
     const months = [
         'Jan',
@@ -57,6 +58,8 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
 
     const [nameValue, communityValue] = nameAtCommunity.split('@');
 
+    const [estimateGasUSD, setEstimateGasUSD] = useState<GasData | undefined>(undefined);
+    const [gasFetchStatus, setGasFetchStatus] = useState<string>('loading...');
     const tokenId: string | undefined = calculateTokenId(nameValue, communityValue);
 
     const formattedDate = getCurrentMonthAndYear();
@@ -65,6 +68,8 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         functionName: 'availableName',
         functionArgs: [nameValue, communityValue],
     });
+
+    const gasEstimate = useEstimateGasFnCall('registerName', [nameValue, communityValue]);
 
     const {
         data: dataNameInCommunityByAddress,
@@ -103,6 +108,33 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
             setCS(fetchedDataCS as ColorScheme);
         }
     }, [fetchedDataCS]);
+
+    const MAX_RETRIES = 5;
+    const RETRY_DELAY = 2000;
+
+    useEffect(() => {
+        const fetchGasPriceData = async (retryCount = 0) => {
+            if (gasEstimate !== undefined) {
+                const result = await fetchGasPrice(gasEstimate.toString());
+
+                if (result.success) {
+                    setEstimateGasUSD(result.data);
+                } else {
+                    if (retryCount < MAX_RETRIES) {
+                        console.log(
+                            `Attempt ${retryCount + 1} failed. Retrying in ${RETRY_DELAY / 1000} seconds...`
+                        );
+                        setTimeout(() => fetchGasPriceData(retryCount + 1), RETRY_DELAY);
+                    } else {
+                        setGasFetchStatus('failed to fetch network fees');
+                        console.error('Max retries reached. Could not fetch gas estimate.');
+                    }
+                }
+            }
+        };
+
+        fetchGasPriceData();
+    }, [gasEstimate]);
 
     const memberRole = checkIfAdmin(adminAddress, address?.toString());
     const {
@@ -240,7 +272,24 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
                             <div className="">
                                 <p>
                                     {' '}
-                                    <b>Name price:</b> FREE{' '}
+                                    <b>Name price:</b> $0 (FREE){' '}
+                                </p>
+                                <p>
+                                    <b>⛽️ Gas:</b>{' '}
+                                    {estimateGasUSD
+                                        ? `${estimateGasUSD.max_fee_per_gas.toFixed(2)} Gwei`
+                                        : gasFetchStatus}
+                                </p>
+                                <p>
+                                    <b>Est. network fee:</b>{' '}
+                                    {estimateGasUSD ? (
+                                        <>
+                                            min ${estimateGasUSD.min.toFixed(2)} max $
+                                            {estimateGasUSD.max.toFixed(2)}
+                                        </>
+                                    ) : (
+                                        gasFetchStatus
+                                    )}
                                 </p>
                                 <p>
                                     {' '}
