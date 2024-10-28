@@ -58,7 +58,7 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
         'registerCommunity',
         [
             searchValue,
-            '0x187e3bf7a18cf0dBce3E0B6D2CCc00CE444F61A7', //just to simulate function
+            '0xF322bce760aDf38a64953447c8bf401bFDa84a05', //just to simulate function random address
         ],
         address
     );
