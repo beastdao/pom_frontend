@@ -8,6 +8,8 @@ import Alert from 'react-bootstrap/Alert';
 import { useAccount } from 'wagmi';
 import TxStatusModalReceipt from '../txStatusModalComponents/TxStatusModalReceipt';
 import { ConnectButton } from '../connectKit/ConnectButton';
+import { useEstimateGasFnCall } from '../wagmiHooks/estimateGasFnCall';
+import { fetchGasPrice, GasData } from '../utils/fetchGasPrice';
 
 const NULLADDR = '0x0000000000000000000000000000000000000000';
 
@@ -39,6 +41,8 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
     const [isButtonClicked, setIsButtonClicked] = useState(false); // New state variable
     const [errorCount, setErrorCount] = useState<number>(0);
     const { address } = useAccount();
+    const [estimateGasUSD, setEstimateGasUSD] = useState<GasData | undefined>(undefined);
+    const [gasFetchStatus, setGasFetchStatus] = useState<string>('loading...');
 
     const {
         data: dataCommunityRegister,
@@ -49,6 +53,15 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
         functionName: 'getCommunityAdmin',
         functionArgs: [searchValue],
     });
+
+    const gasEstimate = useEstimateGasFnCall(
+        'registerCommunity',
+        [
+            searchValue,
+            '0xF322bce760aDf38a64953447c8bf401bFDa84a05', //just to simulate function random address
+        ],
+        address
+    );
 
     const {
         write,
@@ -99,6 +112,33 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
             setButtonStatus('disabled');
         }
     }, [feedBackText, adminAddress, isChecked, address]);
+
+    const MAX_RETRIES = 5;
+    const RETRY_DELAY = 2000;
+
+    useEffect(() => {
+        const fetchGasPriceData = async (retryCount = 0) => {
+            if (gasEstimate !== undefined) {
+                const result = await fetchGasPrice(gasEstimate.toString());
+
+                if (result.success) {
+                    setEstimateGasUSD(result.data);
+                } else {
+                    if (retryCount < MAX_RETRIES) {
+                        console.log(
+                            `Attempt ${retryCount + 1} failed. Retrying in ${RETRY_DELAY / 1000} seconds...`
+                        );
+                        setTimeout(() => fetchGasPriceData(retryCount + 1), RETRY_DELAY);
+                    } else {
+                        setGasFetchStatus('failed to fetch network fees');
+                        console.error('Max retries reached. Could not fetch gas estimate.');
+                    }
+                }
+            }
+        };
+
+        fetchGasPriceData();
+    }, [gasEstimate]);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsChecked(event.target.checked);
@@ -190,6 +230,23 @@ function CommunityRegister({ searchValue }: { searchValue: string }) {
                             <div>
                                 <p>
                                     Memberships issuance is <b>FREE</b> for everyone <b>forever</b>!
+                                </p>
+                                <p>
+                                    <b>⛽️ Gas:</b>{' '}
+                                    {estimateGasUSD
+                                        ? `${estimateGasUSD.max_fee_per_gas.toFixed(2)} Gwei`
+                                        : gasFetchStatus}
+                                </p>
+                                <p>
+                                    <b>Est. network fee:</b>{' '}
+                                    {estimateGasUSD ? (
+                                        <>
+                                            min ${estimateGasUSD.min.toFixed(2)} max $
+                                            {estimateGasUSD.max.toFixed(2)}
+                                        </>
+                                    ) : (
+                                        gasFetchStatus
+                                    )}
                                 </p>
                                 <p>
                                     Membership Cards have initial color scheme designed by{' '}

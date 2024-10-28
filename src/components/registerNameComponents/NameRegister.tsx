@@ -69,7 +69,7 @@ function NameRegister({ nameAtCommunity }: { nameAtCommunity: string }) {
         functionArgs: [nameValue, communityValue],
     });
 
-    const gasEstimate = useEstimateGasFnCall('registerName', [nameValue, communityValue]);
+    const gasEstimate = useEstimateGasFnCall('registerName', [nameValue, communityValue], address);
 
     const {
         data: dataNameInCommunityByAddress,
