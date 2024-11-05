@@ -6,6 +6,14 @@
 
 ---
 
+### Want to add a new community to Community Base?
+
+Please read this [guide](./src/community_base/add-community.md).
+
+---
+
+### Contributors to pom_frontend
+
 repo is migrated to [bun](https://github.com/oven-sh/bun)
 
 how to run:
@@ -16,8 +24,6 @@ how to run:
 2. `bun run build`
 
 3. `bun run start`
-
-### Contributors
 
 After making changes, you need to  run linter `bun run lint` and format the code with `bun run fmt`
 
