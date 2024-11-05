@@ -3,7 +3,7 @@
 GitHub allows you to contribute to our community base by adding new communities using git, and later submit them in a "pull request",making the entire process from submission to approval transparent and inclusive.
 ### Requirements:
 - A GitHub account.
-- Git setup (for simplicity, we recommend [GitHub Desktop]([githubDesktop](https://github.com/apps/desktop))).
+- Git setup (for simplicity, we recommend [GitHub Desktop](https://github.com/apps/desktop)).
 
 Here’s a step-by-step guide to get started
 
