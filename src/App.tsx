@@ -22,7 +22,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type PageKey =
     | '🗂️ COMMUNITY BASE'
-    | 'MY MEMBERSHIPS'
+    | 'MY NAMES'
     | '🌈 CREATE COMMUNITY'
     | 'MY COMMUNITIES'
     | 'ABOUT';
@@ -30,7 +30,7 @@ type PageKey =
 const App: React.FunctionComponent = () => {
     const pages: PageKey[] = [
         '🗂️ COMMUNITY BASE',
-        'MY MEMBERSHIPS',
+        'MY NAMES',
         '🌈 CREATE COMMUNITY',
         'MY COMMUNITIES',
         'ABOUT',
@@ -70,7 +70,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/m/:nameAtCommunity"
+                                        path="/n/:nameAtCommunity"
                                         element={
                                             <PageContent>
                                                 {' '}
@@ -88,7 +88,7 @@ const App: React.FunctionComponent = () => {
                                         }
                                     />
                                     <Route
-                                        path="/m/"
+                                        path="/n/"
                                         element={
                                             <PageContent>
                                                 {' '}
