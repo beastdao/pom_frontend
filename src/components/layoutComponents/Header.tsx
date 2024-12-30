@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const pagePaths = {
     '🗂️ COMMUNITY BASE': '/communitybase',
-    'MY MEMBERSHIPS': '/m/',
+    'MY NAMES': '/n/',
     '🌈 CREATE COMMUNITY': '/createcommunity',
     'MY COMMUNITIES': '/c/',
     ABOUT: '/about',
@@ -19,7 +19,7 @@ const Header = ({ pages }: { pages: (keyof typeof pagePaths)[] }) => (
         <Container>
             <Navbar.Brand as={Link} to="/">
                 <img src={logo} alt="Proof of membership logo" height="30vh" />
-                Proof Of Membership
+                PoM
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>

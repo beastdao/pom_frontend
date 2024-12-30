@@ -46,7 +46,7 @@ function MyMemberships() {
     };
 
     const handleShareButtonClick = (nameAtCommunity: string) => {
-        navigate(`/m/${nameAtCommunity}`);
+        navigate(`/n/${nameAtCommunity}`);
     };
 
     return (
@@ -85,7 +85,7 @@ function MyMemberships() {
                     </Card>
                 ))
             ) : (
-                <p>No memberships found.</p>
+                <p>No names found.</p>
             )}
         </div>
     );
