@@ -18,8 +18,8 @@ const Header = ({ pages }: { pages: (keyof typeof pagePaths)[] }) => (
     <Navbar expand="xl" className="bg-body-tertiary" collapseOnSelect>
         <Container>
             <Navbar.Brand as={Link} to="/">
-                <img src={logo} alt="Proof of membership logo" height="30vh" />
-                PoM
+                <img src={logo} alt="0xNAME logo" height="30vh" />
+                0xNAME
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
